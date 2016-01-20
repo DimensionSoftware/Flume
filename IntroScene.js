@@ -16,19 +16,19 @@ class IntroScene extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fadeInFlower:   new Animated.Value(0),
+      fadeUpFlower: new Animated.Value(1),
       youTubeReady: false,
     }
   }
 
   componentDidMount() {
-    this.fadeInFlower() // go!
+    this.fadeUpFlower() // go!
   }
 
-  fadeInFlower() {
+  fadeUpFlower() {
     Animated.timing(
-      this.state.fadeInFlower,
-      {toValue: 1, duration: 500},
+      this.state.fadeUpFlower,
+      {toValue: 1, duration: 250},
     ).start()
   }
 
@@ -36,9 +36,9 @@ class IntroScene extends Component {
     const { onScroll = () => {} } = this.props
     return (
       <LinearGradient colors={['rgb(175,149,197)', 'rgb(209,109,132)']} style={styles.container}>
-        <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeInFlower}}>
-          <Image source={require('./assets/logo.png')} resizeMode={Image.resizeMode.contain} style={styles.logo} />
-          <Image source={require('./assets/flower.png')} resizeMode={Image.resizeMode.contain} style={styles.flower} />
+        <Image source={require('./assets/logo.png')} resizeMode={Image.resizeMode.contain} style={styles.logo} />
+        <Image source={require('./assets/flower.png')} resizeMode={Image.resizeMode.contain} style={styles.flower} />
+        <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeUpFlower}}>
           <View style={styles.row}>
             <TouchableHighlight style={styles.merch} underlayColor={themeColor}>
               <Text style={styles.buttonText}>MERCH</Text>
@@ -48,10 +48,10 @@ class IntroScene extends Component {
             </TouchableHighlight>
           </View>
         </Animated.View>
-        <Animated.View style={{padding: grid, marginTop: grid * 2, backgroundColor: themeColor, opacity: this.state.fadeInFlower}}>
+        <Animated.View style={{padding: grid, marginTop: grid * 2, backgroundColor: themeColor, opacity: this.state.fadeUpFlower}}>
           <Text style={styles.tour}>TOUR</Text>
         </Animated.View>
-        <Animated.View style={{padding: grid, marginTop: grid * 2, borderWidth: 1, borderColor:textColor, backgroundColor: themeColor, opacity: this.state.fadeInFlower}}>
+        <Animated.View style={{padding: grid, marginTop: grid * 2, borderWidth: 1, borderColor:textColor, backgroundColor: themeColor, opacity: this.state.fadeUpFlower}}>
           <Text style={styles.tour}>SKIN EP</Text>
           <Text style={styles.tour}>PREVIEW</Text>
           <YouTube
