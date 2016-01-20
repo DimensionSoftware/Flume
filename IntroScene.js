@@ -17,6 +17,7 @@ class IntroScene extends Component {
     super(props)
     this.state = {
       fadeInFlower:   new Animated.Value(0),
+      youTubeReady: false,
     }
   }
 
@@ -53,9 +54,16 @@ class IntroScene extends Component {
         <Animated.View style={{padding: grid, marginTop: grid * 2, borderWidth: 1, borderColor:textColor, backgroundColor: themeColor, opacity: this.state.fadeInFlower}}>
           <Text style={styles.tour}>SKIN EP</Text>
           <Text style={styles.tour}>PREVIEW</Text>
-          <YouTube videoId='Su9tda5VZDE' hidden={false} playsInline={true} />
+          <YouTube
+            ref='youtube'
+            play={false}
+            style={styles.youtube}
+            videoId='Su9tda5VZDE'
+            hidden={!this.state.youTubeReady}
+            playsInline={true}
+            onReady={() =>{this.setState({youTubeReady: true})}} />
         </Animated.View>
-      <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
+        <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
       </LinearGradient>
     )
   }
@@ -115,6 +123,12 @@ const window = Dimensions.get('window'),
     },
     box: {
       backgroundColor: themeColor,
+    },
+    youtube: {
+      alignSelf: 'stretch',
+      height: 200,
+      marginTop: grid,
+      backgroundColor: textColor,
     },
     fc: {
       width: 45,
