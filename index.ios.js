@@ -23,6 +23,10 @@ global.Component  = Component
 global.StyleSheet = StyleSheet
 global.Animated   = Animated
 
+// "stylesheet" theme variables
+global.textColor  = '#fff'
+global.themeColor = 'rgba(122,87,153,.7)'
+
 const IntroScene = require('./IntroScene')
 
 const flume = React.createClass({
