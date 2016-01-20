@@ -6,17 +6,19 @@ const {
   Image,
   TextInput,
   Text,
+  LinkingIOS,
   TouchableHighlight,
   View,
 } = React,
   LinearGradient = require('react-native-linear-gradient'),
-  YouTube = require('react-native-youtube')
+  YouTube        = require('react-native-youtube'),
+  LinkedIcon     = require('./LinkedIcon')
 
 class IntroScene extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fadeUpFlower: new Animated.Value(1),
+      fadeUpFlower: new Animated.Value(0),
       youTubeReady: false,
     }
   }
@@ -28,7 +30,7 @@ class IntroScene extends Component {
   fadeUpFlower() {
     Animated.timing(
       this.state.fadeUpFlower,
-      {toValue: 1, duration: 250},
+      {toValue: 1, duration: 350},
     ).start()
   }
 
@@ -40,15 +42,25 @@ class IntroScene extends Component {
         <Image source={require('./assets/flower.png')} resizeMode={Image.resizeMode.contain} style={styles.flower} />
         <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeUpFlower}}>
           <View style={styles.row}>
-            <TouchableHighlight style={styles.merch} underlayColor={themeColor}>
+            <TouchableHighlight style={[styles.button, styles.merch]} underlayColor={themeColor} onPress={() =>
+              LinkingIOS.openURL('https://store.futureclassic.com.au/collections/flume')
+            }>
               <Text style={styles.buttonText}>MERCH</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.newsletter} underlayColor={themeColor}>
+            <TouchableHighlight style={[styles.button, styles.newsletter]} underlayColor={themeColor}>
               <Text style={styles.buttonText}>NEWSLETTER</Text>
             </TouchableHighlight>
           </View>
+          <View style={[styles.row, styles.icons]}>
+            <LinkedIcon icon='twitter'    href='https://twitter.com/flumemusic' />
+            <LinkedIcon icon='facebook-f' href='https://www.facebook.com/flumemusic' />
+            <LinkedIcon icon='instagram'  href='http://instagram.com/flumemusic' />
+            <LinkedIcon icon='spotify'    href='https://open.spotify.com/artist/6nxWCVXbOlEVRexSbLsTer' />
+            <LinkedIcon icon='soundcloud' href='https://soundcloud.com/flume' />
+            <LinkedIcon icon='apple'      href='https://itunes.apple.com/au/artist/flume/id4275634?app=itunes' />
+          </View>
         </Animated.View>
-        <Animated.View style={{padding: grid, marginTop: grid * 2, backgroundColor: themeColor, opacity: this.state.fadeUpFlower}}>
+        <Animated.View style={[styles.tourContainer, {opacity: this.state.fadeUpFlower}]}>
           <Text style={styles.tour}>TOUR</Text>
         </Animated.View>
         <Animated.View style={{padding: grid, marginTop: grid * 2, borderWidth: 1, borderColor:textColor, backgroundColor: themeColor, opacity: this.state.fadeUpFlower}}>
@@ -71,12 +83,12 @@ class IntroScene extends Component {
 
 const window = Dimensions.get('window'),
   grid       = 10,
+  height     = window.height,
   width      = window.width,
   styles     = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: 'transparent',
-      flex: 1,
       flexDirection: 'column',
       padding: grid * 2.5,
       paddingTop: grid / 2,
@@ -91,20 +103,18 @@ const window = Dimensions.get('window'),
       flexDirection: 'row',
       marginTop: -grid,
     },
-    merch: {
+    button: {
       flex: 1,
-      borderWidth: 1,
+      borderWidth: 1.5,
       borderColor: textColor,
       padding: 5,
       paddingLeft: grid,
+    },
+    merch: {
       paddingRight: grid,
       marginRight: grid / 2,
     },
     newsletter: {
-      flex: 1,
-      borderWidth: 1,
-      borderColor: textColor,
-      padding: 5,
       paddingLeft: grid,
       paddingRight: grid,
     },
@@ -114,6 +124,21 @@ const window = Dimensions.get('window'),
       fontWeight: '600',
       color: textColor,
     },
+    icons: {
+      marginTop: 0,
+      marginRight: -42, // stretch right-most item
+    },
+    icon: {
+      fontFamily: 'fontawesome',
+      flex: 1,
+      fontSize:20,
+      color: textColor
+    },
+    tourContainer: {
+      padding: grid,
+      marginTop: height - (grid * 35),
+      backgroundColor: themeColor,
+    },
     tour: {
       letterSpacing: 3,
       fontSize: 40,
@@ -121,12 +146,9 @@ const window = Dimensions.get('window'),
       alignSelf: 'center',
       fontWeight: '300',
     },
-    box: {
-      backgroundColor: themeColor,
-    },
     youtube: {
       alignSelf: 'stretch',
-      height: 200,
+      height: 170,
       marginTop: grid,
       backgroundColor: textColor,
     },

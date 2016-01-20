@@ -24,6 +24,7 @@
 		53C93FD71C4B631400F35236 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C93FD61C4B630A00F35236 /* libBVLinearGradient.a */; };
 		53C93FDE1C4B6AC900F35236 /* libRCTYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C93FDD1C4B6AC500F35236 /* libRCTYouTube.a */; };
 		53C9BE5D1C4F61AB001C571B /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 53C9BE5C1C4F61AB001C571B /* YTPlayerView-iframe-player.html */; };
+		53F364341C50224D00DA4BAF /* fontawesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53F364331C50224D00DA4BAF /* fontawesome.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
 
@@ -144,6 +145,7 @@
 		53C93FD11C4B630A00F35236 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		53C93FD81C4B6AC500F35236 /* RCTYouTube.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTYouTube.xcodeproj; path = "../node_modules/react-native-youtube/RCTYouTube.xcodeproj"; sourceTree = "<group>"; };
 		53C9BE5C1C4F61AB001C571B /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
+		53F364331C50224D00DA4BAF /* fontawesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = fontawesome.ttf; path = "../node_modules/react-native-iconic-font/fonts/fontawesome.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -325,6 +327,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				53F364331C50224D00DA4BAF /* fontawesome.ttf */,
 				53C9BE5C1C4F61AB001C571B /* YTPlayerView-iframe-player.html */,
 				53C93FD81C4B6AC500F35236 /* RCTYouTube.xcodeproj */,
 				53C93FD11C4B630A00F35236 /* BVLinearGradient.xcodeproj */,
@@ -571,6 +574,7 @@
 				53C9BE5D1C4F61AB001C571B /* YTPlayerView-iframe-player.html in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				53F364341C50224D00DA4BAF /* fontawesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
