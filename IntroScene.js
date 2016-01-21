@@ -95,6 +95,17 @@ class IntroScene extends Component {
           </Animated.View>
           <Animated.View // TODO soundcloud.com "never be like you" ch00nz
           />
+          <Animated.View // youtube (for now) "never be like you" ch00nz
+            style={[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0, opacity: this.state.fadeInBody}]}>
+            <YouTube
+              ref='youtube'
+              play={false}
+              style={styles.youtube}
+              videoId='Ly7uj0JwgKg'
+              hidden={!this.state.youTubeReady}
+              playsInline={true}
+              onReady={() =>{this.setState({youTubeReady: true})}} />
+          </Animated.View>
           <Animated.View // youtube "skin" ep ch00nz
             style={[styles.preview, {opacity: this.state.fadeInBody}]}>
             <Text style={styles.tour}>SKIN EP</Text>
