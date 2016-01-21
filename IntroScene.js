@@ -20,13 +20,13 @@ class IntroScene extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fadeInBody:   new Animated.Value(0),
-      fadeInLogo:   new Animated.Value(0),
-      fadeInHeader: new Animated.Value(0),
-      fadeInIcons:  new Animated.Value(0),
-      fadeInFlower: new Animated.Value(0),
-      upFlower:     new Animated.Value(0),
-      youTubeReady: false, // hidden until
+      fadeInBody:    new Animated.Value(0),
+      fadeInLogo:    new Animated.Value(0),
+      fadeInHeader:  new Animated.Value(0),
+      fadeInIcons:   new Animated.Value(0),
+      flowerOpacity: new Animated.Value(0),
+      upFlower:      new Animated.Value(0),
+      youTubeReady:  false, // hidden until
     }
   }
 
@@ -43,7 +43,7 @@ class IntroScene extends Component {
       timing(this.state.fadeInIcons, {toValue: 1, duration: 1100, easing }),
     ]).start()
     Animated.stagger(100, [
-      timing(this.state.fadeInFlower, {toValue: 1, duration: 700}),
+      timing(this.state.flowerOpacity, {toValue: 1, duration: 700}),
       timing(this.state.upFlower, {toValue: -50, duration: 700, easing}),
     ]).start()
   }
@@ -52,7 +52,16 @@ class IntroScene extends Component {
     const { onScroll = () => {} } = this.props
     return (
       <LinearGradient colors={['rgb(175,149,197)', 'rgb(209,109,132)']} style={styles.container} >
-        <ScrollView style={styles.scroll}>
+        <ScrollView style={styles.scroll} scrollEventThrottle={12} onScroll={(e) => {
+          // flower scroll fx
+          const y = e.nativeEvent.contentOffset.y,
+           flowerOpacity = y <= 2
+             ? 1            // show
+             : y >= 400
+                ? 0
+                : 1 / (y / 25) // fast fade
+          this.setState({upFlower: y, flowerOpacity})
+        }}>
           <Animated.Image // flume logo
             source={require('./assets/logo.png')}
             resizeMode={Image.resizeMode.contain}
@@ -62,7 +71,7 @@ class IntroScene extends Component {
             resizeMode = {Image.resizeMode.contain}
             style      = {[
               {
-                opacity: this.state.fadeInFlower,
+                opacity: this.state.flowerOpacity,
                 transform: [{
                   translateY: this.state.upFlower,
                 }],
@@ -120,7 +129,7 @@ class IntroScene extends Component {
               onReady={() =>{this.setState({youTubeReady: true})}} />
           </Animated.View>
           <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
-          <Text style={styles.copy}>© FLUME {new Date().getFullYear()} SITE: MANUFACTUR X FLUME</Text>
+          <Text style={styles.copy}>© FLUME {new Date().getFullYear()}  ●  SITE: MANUFACTUR X FLUME</Text>
         </ScrollView>
       </LinearGradient>
     )
@@ -180,6 +189,7 @@ const window = Dimensions.get('window'),
     tourContainer: {
       padding: grid,
       marginTop: height - (grid * 36),
+      marginBottom: grid * 1.5,
       backgroundColor: themeColor,
     },
     tour: {
@@ -210,12 +220,12 @@ const window = Dimensions.get('window'),
       color: textColor,
       alignSelf: 'center',
       fontWeight: '300',
-      fontSize: 13,
+      fontSize: 11,
       marginTop: -grid * 7.5,
       marginBottom: grid * 4,
     },
     flower: {
-      bottom: 0,
+      bottom: 300,
       position: 'absolute',
       width: width,
       backgroundColor: 'transparent',
