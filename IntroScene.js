@@ -53,11 +53,11 @@ class IntroScene extends Component {
     return (
       <LinearGradient colors={['rgb(175,149,197)', 'rgb(209,109,132)']} style={styles.container} >
         <ScrollView style={styles.scroll}>
-          <Animated.Image
+          <Animated.Image // flume logo
             source={require('./assets/logo.png')}
             resizeMode={Image.resizeMode.contain}
             style={[{opacity: this.state.fadeInLogo}, styles.logo]} />
-          <Animated.Image
+          <Animated.Image // flower
             source     = {require('./assets/flower.png')}
             resizeMode = {Image.resizeMode.contain}
             style      = {[
@@ -67,7 +67,8 @@ class IntroScene extends Component {
                   translateY: this.state.upFlower,
                 }],
               }, styles.flower]} />
-          <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeInHeader}}>
+          <Animated.View // bigger buttons
+            style={{backgroundColor: 'transparent', opacity: this.state.fadeInHeader}}>
             <View style={styles.row}>
               <LinkedIcon href='https://store.futureclassic.com.au/collections/flume' style={[styles.button, styles.merch]}>
                 <Text style={styles.buttonText}>MERCH</Text>
@@ -77,7 +78,8 @@ class IntroScene extends Component {
               </LinkedIcon>
             </View>
           </Animated.View>
-          <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeInIcons}}>
+          <Animated.View // social icon row
+            style={{backgroundColor: 'transparent', opacity: this.state.fadeInIcons}}>
             <View style={[styles.row, styles.icons]}>
               <LinkedIcon icon='twitter'    href='https://twitter.com/flumemusic' />
               <LinkedIcon icon='facebook-f' href='https://www.facebook.com/flumemusic' />
@@ -87,10 +89,14 @@ class IntroScene extends Component {
               <LinkedIcon icon='apple'      href='https://itunes.apple.com/au/artist/flume/id4275634?app=itunes' />
             </View>
           </Animated.View>
-          <Animated.View style={[styles.tourContainer, {opacity: this.state.fadeInBody}]}>
+          <Animated.View // TODO songkick.com tour
+            style={[styles.tourContainer, {opacity: this.state.fadeInBody}]}>
             <Text style={styles.tour}>TOUR</Text>
           </Animated.View>
-          <Animated.View style={[styles.preview, {opacity: this.state.fadeInBody}]}>
+          <Animated.View // TODO soundcloud.com "never be like you" ch00nz
+          />
+          <Animated.View // youtube "skin" ep ch00nz
+            style={[styles.preview, {opacity: this.state.fadeInBody}]}>
             <Text style={styles.tour}>SKIN EP</Text>
             <Text style={styles.tour}>PREVIEW</Text>
             <YouTube
@@ -103,6 +109,7 @@ class IntroScene extends Component {
               onReady={() =>{this.setState({youTubeReady: true})}} />
           </Animated.View>
           <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
+          <Text style={styles.copy}>© FLUME {new Date().getFullYear()} SITE: MANUFACTUR X FLUME</Text>
         </ScrollView>
       </LinearGradient>
     )
@@ -166,7 +173,7 @@ const window = Dimensions.get('window'),
     },
     tour: {
       letterSpacing: 3,
-      fontSize: 40,
+      fontSize: 50,
       color: textColor,
       alignSelf: 'center',
       fontWeight: '300',
@@ -187,6 +194,14 @@ const window = Dimensions.get('window'),
     fc: {
       width: 45,
       alignSelf: 'center',
+    },
+    copy: {
+      color: textColor,
+      alignSelf: 'center',
+      fontWeight: '300',
+      fontSize: 13,
+      marginTop: -grid * 7.5,
+      marginBottom: grid * 4,
     },
     flower: {
       bottom: 0,
