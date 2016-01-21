@@ -9,6 +9,7 @@ const {
   Text,
   LinkingIOS,
   TouchableHighlight,
+  ScrollView,
   View,
 } = React,
   LinearGradient = require('react-native-linear-gradient'),
@@ -50,57 +51,59 @@ class IntroScene extends Component {
   render() {
     const { onScroll = () => {} } = this.props
     return (
-      <LinearGradient colors={['rgb(175,149,197)', 'rgb(209,109,132)']} style={styles.container}>
-        <Animated.Image
-          source={require('./assets/logo.png')}
-          resizeMode={Image.resizeMode.contain}
-          style={[{opacity: this.state.fadeInLogo}, styles.logo]} />
-        <Animated.Image
-          source     = {require('./assets/flower.png')}
-          resizeMode = {Image.resizeMode.contain}
-          style      = {[
-            {
-              opacity: this.state.fadeInFlower,
-              transform: [{
-                translateY: this.state.upFlower,
-              }],
-            }, styles.flower]} />
-        <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeInHeader}}>
-          <View style={styles.row}>
-            <LinkedIcon href='https://store.futureclassic.com.au/collections/flume' style={[styles.button, styles.merch]}>
-              <Text style={styles.buttonText}>MERCH</Text>
-            </LinkedIcon>
-            <LinkedIcon onPress={() => {}} style={[styles.button, styles.newsletter]}>
-              <Text style={styles.buttonText}>NEWSLETTER</Text>
-            </LinkedIcon>
-          </View>
-        </Animated.View>
-        <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeInIcons}}>
-          <View style={[styles.row, styles.icons]}>
-            <LinkedIcon icon='twitter'    href='https://twitter.com/flumemusic' />
-            <LinkedIcon icon='facebook-f' href='https://www.facebook.com/flumemusic' />
-            <LinkedIcon icon='instagram'  href='http://instagram.com/flumemusic' />
-            <LinkedIcon icon='spotify'    href='https://open.spotify.com/artist/6nxWCVXbOlEVRexSbLsTer' />
-            <LinkedIcon icon='soundcloud' href='https://soundcloud.com/flume' />
-            <LinkedIcon icon='apple'      href='https://itunes.apple.com/au/artist/flume/id4275634?app=itunes' />
-          </View>
-        </Animated.View>
-        <Animated.View style={[styles.tourContainer, {opacity: this.state.fadeInBody}]}>
-          <Text style={styles.tour}>TOUR</Text>
-        </Animated.View>
-        <Animated.View style={[styles.preview, {opacity: this.state.fadeInBody}]}>
-          <Text style={styles.tour}>SKIN EP</Text>
-          <Text style={styles.tour}>PREVIEW</Text>
-          <YouTube
-            ref='youtube'
-            play={false}
-            style={styles.youtube}
-            videoId='Su9tda5VZDE'
-            hidden={!this.state.youTubeReady}
-            playsInline={true}
-            onReady={() =>{this.setState({youTubeReady: true})}} />
-        </Animated.View>
-        <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
+      <LinearGradient colors={['rgb(175,149,197)', 'rgb(209,109,132)']} style={styles.container} >
+        <ScrollView style={styles.scroll}>
+          <Animated.Image
+            source={require('./assets/logo.png')}
+            resizeMode={Image.resizeMode.contain}
+            style={[{opacity: this.state.fadeInLogo}, styles.logo]} />
+          <Animated.Image
+            source     = {require('./assets/flower.png')}
+            resizeMode = {Image.resizeMode.contain}
+            style      = {[
+              {
+                opacity: this.state.fadeInFlower,
+                transform: [{
+                  translateY: this.state.upFlower,
+                }],
+              }, styles.flower]} />
+          <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeInHeader}}>
+            <View style={styles.row}>
+              <LinkedIcon href='https://store.futureclassic.com.au/collections/flume' style={[styles.button, styles.merch]}>
+                <Text style={styles.buttonText}>MERCH</Text>
+              </LinkedIcon>
+              <LinkedIcon onPress={() => {}} style={[styles.button, styles.newsletter]}>
+                <Text style={styles.buttonText}>NEWSLETTER</Text>
+              </LinkedIcon>
+            </View>
+          </Animated.View>
+          <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeInIcons}}>
+            <View style={[styles.row, styles.icons]}>
+              <LinkedIcon icon='twitter'    href='https://twitter.com/flumemusic' />
+              <LinkedIcon icon='facebook-f' href='https://www.facebook.com/flumemusic' />
+              <LinkedIcon icon='instagram'  href='http://instagram.com/flumemusic' />
+              <LinkedIcon icon='spotify'    href='https://open.spotify.com/artist/6nxWCVXbOlEVRexSbLsTer' />
+              <LinkedIcon icon='soundcloud' href='https://soundcloud.com/flume' />
+              <LinkedIcon icon='apple'      href='https://itunes.apple.com/au/artist/flume/id4275634?app=itunes' />
+            </View>
+          </Animated.View>
+          <Animated.View style={[styles.tourContainer, {opacity: this.state.fadeInBody}]}>
+            <Text style={styles.tour}>TOUR</Text>
+          </Animated.View>
+          <Animated.View style={[styles.preview, {opacity: this.state.fadeInBody}]}>
+            <Text style={styles.tour}>SKIN EP</Text>
+            <Text style={styles.tour}>PREVIEW</Text>
+            <YouTube
+              ref='youtube'
+              play={false}
+              style={styles.youtube}
+              videoId='Su9tda5VZDE'
+              hidden={!this.state.youTubeReady}
+              playsInline={true}
+              onReady={() =>{this.setState({youTubeReady: true})}} />
+          </Animated.View>
+          <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
+        </ScrollView>
       </LinearGradient>
     )
   }
@@ -115,9 +118,12 @@ const window = Dimensions.get('window'),
       flex: 1,
       backgroundColor: 'transparent',
       flexDirection: 'column',
+      opacity: 1,
+    },
+    scroll: {
+      backgroundColor: 'transparent',
       padding: grid * 2.5,
       paddingTop: grid / 2,
-      opacity: 1,
     },
     logo: {
       alignSelf: 'center',
@@ -183,7 +189,7 @@ const window = Dimensions.get('window'),
       alignSelf: 'center',
     },
     flower: {
-      top: -110,
+      bottom: 0,
       position: 'absolute',
       width: width,
       backgroundColor: 'transparent',
