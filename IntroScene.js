@@ -2,6 +2,7 @@
 
 const {
   Animated,
+  Easing,
   Dimensions,
   Image,
   TextInput,
@@ -18,39 +19,63 @@ class IntroScene extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fadeUpFlower: new Animated.Value(0),
-      youTubeReady: false,
+      fadeInBody:   new Animated.Value(0),
+      fadeInLogo:   new Animated.Value(0),
+      fadeInHeader: new Animated.Value(0),
+      fadeInIcons:  new Animated.Value(0),
+      fadeInFlower: new Animated.Value(0),
+      upFlower:     new Animated.Value(0),
+      youTubeReady: false, // hidden until
     }
   }
 
   componentDidMount() {
-    this.fadeUpFlower() // go!
+    this.buildIn() // go!
   }
 
-  fadeUpFlower() {
-    Animated.timing(
-      this.state.fadeUpFlower,
-      {toValue: 1, duration: 350},
-    ).start()
+  buildIn() {
+    const timing = Animated.timing, easing = Easing.out(Easing.quad)
+    Animated.stagger(80, [
+      timing(this.state.fadeInBody, {toValue: 1, duration: 100, easing }),
+      timing(this.state.fadeInLogo, {toValue: 1, duration: 300}),
+      timing(this.state.fadeInHeader, {toValue: 1, duration: 600, easing }),
+      timing(this.state.fadeInIcons, {toValue: 1, duration: 1100, easing }),
+    ]).start()
+    Animated.stagger(100, [
+      timing(this.state.fadeInFlower, {toValue: 1, duration: 700}),
+      timing(this.state.upFlower, {toValue: -50, duration: 700, easing}),
+    ]).start()
   }
 
   render() {
     const { onScroll = () => {} } = this.props
     return (
       <LinearGradient colors={['rgb(175,149,197)', 'rgb(209,109,132)']} style={styles.container}>
-        <Image source={require('./assets/logo.png')} resizeMode={Image.resizeMode.contain} style={styles.logo} />
-        <Image source={require('./assets/flower.png')} resizeMode={Image.resizeMode.contain} style={styles.flower} />
-        <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeUpFlower}}>
+        <Animated.Image
+          source={require('./assets/logo.png')}
+          resizeMode={Image.resizeMode.contain}
+          style={[{opacity: this.state.fadeInLogo}, styles.logo]} />
+        <Animated.Image
+          source     = {require('./assets/flower.png')}
+          resizeMode = {Image.resizeMode.contain}
+          style      = {[
+            {
+              opacity: this.state.fadeInFlower,
+              transform: [{
+                translateY: this.state.upFlower,
+              }],
+            }, styles.flower]} />
+        <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeInHeader}}>
           <View style={styles.row}>
-            <TouchableHighlight style={[styles.button, styles.merch]} underlayColor={themeColor} onPress={() =>
-              LinkingIOS.openURL('https://store.futureclassic.com.au/collections/flume')
-            }>
+            <LinkedIcon href='https://store.futureclassic.com.au/collections/flume' style={[styles.button, styles.merch]}>
               <Text style={styles.buttonText}>MERCH</Text>
-            </TouchableHighlight>
-            <TouchableHighlight style={[styles.button, styles.newsletter]} underlayColor={themeColor}>
+            </LinkedIcon>
+            <LinkedIcon onPress={() => {}} style={[styles.button, styles.newsletter]}>
               <Text style={styles.buttonText}>NEWSLETTER</Text>
-            </TouchableHighlight>
+            </LinkedIcon>
           </View>
+        </Animated.View>
+        <Animated.View style={{backgroundColor: 'transparent', opacity: this.state.fadeInIcons}}>
           <View style={[styles.row, styles.icons]}>
             <LinkedIcon icon='twitter'    href='https://twitter.com/flumemusic' />
             <LinkedIcon icon='facebook-f' href='https://www.facebook.com/flumemusic' />
@@ -60,10 +85,10 @@ class IntroScene extends Component {
             <LinkedIcon icon='apple'      href='https://itunes.apple.com/au/artist/flume/id4275634?app=itunes' />
           </View>
         </Animated.View>
-        <Animated.View style={[styles.tourContainer, {opacity: this.state.fadeUpFlower}]}>
+        <Animated.View style={[styles.tourContainer, {opacity: this.state.fadeInBody}]}>
           <Text style={styles.tour}>TOUR</Text>
         </Animated.View>
-        <Animated.View style={{padding: grid, marginTop: grid * 2, borderWidth: 1, borderColor:textColor, backgroundColor: themeColor, opacity: this.state.fadeUpFlower}}>
+        <Animated.View style={[styles.preview, {opacity: this.state.fadeInBody}]}>
           <Text style={styles.tour}>SKIN EP</Text>
           <Text style={styles.tour}>PREVIEW</Text>
           <YouTube
@@ -125,18 +150,12 @@ const window = Dimensions.get('window'),
       color: textColor,
     },
     icons: {
-      marginTop: 0,
+      marginTop: 20,
       marginRight: -42, // stretch right-most item
-    },
-    icon: {
-      fontFamily: 'fontawesome',
-      flex: 1,
-      fontSize:20,
-      color: textColor
     },
     tourContainer: {
       padding: grid,
-      marginTop: height - (grid * 35),
+      marginTop: height - (grid * 36),
       backgroundColor: themeColor,
     },
     tour: {
@@ -145,6 +164,13 @@ const window = Dimensions.get('window'),
       color: textColor,
       alignSelf: 'center',
       fontWeight: '300',
+    },
+    preview: {
+      padding: grid,
+      marginTop: grid * 2,
+      borderWidth: 1,
+      borderColor:textColor,
+      backgroundColor: themeColor,
     },
     youtube: {
       alignSelf: 'stretch',
@@ -157,7 +183,7 @@ const window = Dimensions.get('window'),
       alignSelf: 'center',
     },
     flower: {
-      top: -160,
+      top: -110,
       position: 'absolute',
       width: width,
       backgroundColor: 'transparent',

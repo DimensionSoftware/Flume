@@ -29,10 +29,10 @@ global.themeColor = 'rgba(122,87,153,.7)'
 
 const IntroScene = require('./IntroScene')
 
-const flume = React.createClass({
+const app = React.createClass({
   render: function() {
     return <IntroScene />
   }
 })
 
-AppRegistry.registerComponent('flume', () => flume)
+AppRegistry.registerComponent('flume', () => app)
