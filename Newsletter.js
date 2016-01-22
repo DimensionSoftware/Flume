@@ -8,16 +8,34 @@ const {
   View,
   LinkingIOS,
 } = React,
+
   Icon = require('react-native-iconic-font/fontawesome'),
-  {VibrancyView} = require('react-native-blur')
+  Form = require('react-native-form'),
+
+  validBorder     = '#383083',
+  invalidBorder   = 'red',
+  placeholderText = '#7870c3'
 
 class Newsletter extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      // container defaults
       y:       new Animated.Value(0),
       opacity: new Animated.Value(1),
+
+      borderEmail: validBorder,
+      borderZip:   validBorder,
     }
+  }
+
+  close() { // animate out
+    const timing = Animated.timing,
+      easing = Easing.out(Easing.quad)
+    Animated.stagger(0, [
+      timing(this.state.y, {toValue: 100, duration: 200, easing }),
+      timing(this.state.opacity, {toValue: 0, duration: 200, easing })])
+        .start(this.props.onClose) // cb
   }
 
   render() {
@@ -30,37 +48,55 @@ class Newsletter extends Component {
         }, styles.container]}>
           <TouchableHighlight
             underlayColor='transparent'
-            onPress={() => {
-              // animate out
-              const timing = Animated.timing,
-                easing = Easing.out(Easing.quad)
-              Animated.stagger(0, [
-                timing(this.state.y, {toValue: 100, duration: 200, easing }),
-                timing(this.state.opacity, {toValue: 0, duration: 200, easing })])
-                  .start(this.props.onClose) // cb
-            }}>
+            onPress={this.close.bind(this)}>
             <Text style={[styles.header, styles.close]}>{Icon('check')}</Text>
           </TouchableHighlight>
           <Text style={styles.header}>MAILING LIST</Text>
-          <TextInput // email address
-            autoCapitalize       = {'characters'}
-            autoCorrect          = {false}
-            autoFocus            = {true}
-            keyboardType         = {'email-address'}
-            placeholderTextColor = {'#7870c3'}
-            style                = {styles.input}
-            placeholder          = {'EMAIL'} />
-          <TextInput // zipcode
-            autoCorrect          = {false}
-            keyboardType         = {'numeric'}
-            placeholderTextColor = {'#7870c3'}
-            style                = {styles.input}
-            placeholder          = {'ZIPCODE'} />
+          <Form ref='form'>
+            <TextInput // email address
+              name                 = {'email'}
+              autoCapitalize       = {'characters'}
+              autoCorrect          = {false}
+              autoFocus            = {true}
+              clearButtonMode      = {'while-editing'}
+              keyboardType         = {'email-address'}
+              placeholderTextColor = {placeholderText}
+              style                = {[styles.input, {borderColor: this.state.borderEmail}]}
+              placeholder          = {'EMAIL'} />
+            <TextInput // zipcode
+              name                 = {'zip'}
+              autoCorrect          = {false}
+              clearButtonMode      = {'while-editing'}
+              keyboardType         = {'numeric'}
+              placeholderTextColor = {placeholderText}
+              style                = {[styles.input, {borderColor: this.state.borderZip}]}
+              placeholder          = {'ZIPCODE'} />
+          </Form>
           <TouchableHighlight
             underlayColor='transparent'
-            onPress={() => { // TODO subscribe
+            onPress={() => { // attempt subscribe:
+              var {zip,email} = this.refs.form.getValues()
+              // validate
+              this.setState({borderEmail: email.indexOf('@') === -1 ? invalidBorder : validBorder})
+              this.setState({borderZip: (zip.length < 5 || zip.match(/[^\d]/)) ? invalidBorder : validBorder})
+              if (this.borderEmail === invalidBorder || this.borderZip === invalidBorder) return false // guard
+
               // TODO ajax POST
-              // TODO fun, friendly thank you
+              fetch('http://www.flumemusic.com/', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  input_1: email,
+                  input_2: zip,
+                })
+              }).then(function(res) {
+                // TODO fun, friendly thank you
+                if (res.status === 200) this.close()
+                console.log('res: ', res, res.json())
+              })
             }}
           >
             <Text style={[styles.header, styles.button]}>SAVE</Text>
@@ -105,7 +141,7 @@ const styles = StyleSheet.create({
     color: textColor,
     fontWeight: '300',
     borderWidth: 1,
-    borderColor: '#383083',
+    borderColor: validBorder,
     marginTop: grid,
   },
   button: {
