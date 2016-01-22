@@ -8,25 +8,26 @@ const {
   TextInput,
   Text,
   LinkingIOS,
-  TouchableHighlight,
   ScrollView,
   View,
 } = React,
   LinearGradient = require('react-native-linear-gradient'),
   YouTube        = require('react-native-youtube'),
-  LinkedIcon     = require('./LinkedIcon')
+  LinkedIcon     = require('./LinkedIcon'),
+  Newsletter     = require('./Newsletter'),
 
 class IntroScene extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fadeInBody:    new Animated.Value(0),
-      fadeInLogo:    new Animated.Value(0),
-      fadeInHeader:  new Animated.Value(0),
-      fadeInIcons:   new Animated.Value(0),
-      flowerOpacity: new Animated.Value(0),
-      upFlower:      new Animated.Value(0),
-      youTubeReady:  false, // hidden until
+      fadeInBody:     new Animated.Value(0),
+      fadeInLogo:     new Animated.Value(0),
+      fadeInHeader:   new Animated.Value(0),
+      fadeInIcons:    new Animated.Value(0),
+      flowerOpacity:  new Animated.Value(0),
+      upFlower:       new Animated.Value(0),
+      youTubeReady:   false, // hidden until
+      showNewsletter: false,
     }
   }
 
@@ -49,7 +50,14 @@ class IntroScene extends Component {
   }
 
   render() {
-    const { onScroll = () => {} } = this.props
+    const { onScroll = () => {} } = this.props,
+      newsletter =
+        this.state.showNewsletter
+          ? <Newsletter 
+            onClose={() => { // close!
+              this.setState({showNewsletter: false })
+            }} />
+          : null // closed state
     return (
       <LinearGradient colors={['rgb(175,149,197)', 'rgb(209,109,132)']} style={styles.container} >
         <ScrollView style={styles.scroll} scrollEventThrottle={12} onScroll={(e) => {
@@ -82,7 +90,11 @@ class IntroScene extends Component {
               <LinkedIcon href='https://store.futureclassic.com.au/collections/flume' style={[styles.button, styles.merch]}>
                 <Text style={styles.buttonText}>MERCH</Text>
               </LinkedIcon>
-              <LinkedIcon onPress={() => {}} style={[styles.button, styles.newsletter]}>
+              <LinkedIcon
+                onPress={() => { // toggle newsletter modal
+                  this.setState({showNewsletter: !this.state.showNewsletter})
+                }}
+                style={[styles.button, styles.newsletter]}>
                 <Text style={styles.buttonText}>NEWSLETTER</Text>
               </LinkedIcon>
             </View>
@@ -131,6 +143,7 @@ class IntroScene extends Component {
           <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
           <Text style={styles.copy}>© FLUME {new Date().getFullYear()}  ●  SITE: MANUFACTUR X FLUME</Text>
         </ScrollView>
+        {newsletter}
       </LinearGradient>
     )
   }
