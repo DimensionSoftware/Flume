@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
     fontFamily: 'fontawesome',
     flex: 1,
     fontSize: 20,
-    color: textColor
+    color: textColor,
+    alignSelf: 'center',
   },
 })
 

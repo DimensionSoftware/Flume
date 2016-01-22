@@ -16,6 +16,8 @@ const {
   LinkedIcon     = require('./LinkedIcon'),
   Newsletter     = require('./Newsletter'),
 
+  flowerOffset = 300 // offset from bottom
+
 class IntroScene extends Component {
   constructor(props) {
     super(props)
@@ -64,10 +66,10 @@ class IntroScene extends Component {
           // flower scroll fx
           const y = e.nativeEvent.contentOffset.y,
            flowerOpacity = y <= 2
-             ? 1            // show
-             : y >= 400
+             ? 1                 // show
+             : y >= flowerOffset // hard limit to disappear
                 ? 0
-                : 1 / (y / 25) // fast fade
+                : 1 / (y / 15)   // fast fade
           this.setState({upFlower: y, flowerOpacity})
         }}>
           <Animated.Image // flume logo
@@ -150,7 +152,6 @@ class IntroScene extends Component {
 }
 
 const window = Dimensions.get('window'),
-  grid       = 10,
   height     = window.height,
   width      = window.width,
   styles     = StyleSheet.create({
@@ -197,7 +198,8 @@ const window = Dimensions.get('window'),
     },
     icons: {
       marginTop: 20,
-      marginRight: -42, // stretch right-most item
+      marginRight: -14, // stretch right-most item
+      marginLeft: -14,  // " left-most
     },
     tourContainer: {
       padding: grid,
@@ -238,7 +240,7 @@ const window = Dimensions.get('window'),
       marginBottom: grid * 4,
     },
     flower: {
-      bottom: 300,
+      bottom: flowerOffset,
       position: 'absolute',
       width: width,
       backgroundColor: 'transparent',
