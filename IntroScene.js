@@ -16,7 +16,7 @@ const {
   LinkedIcon     = require('./LinkedIcon'),
   Newsletter     = require('./Newsletter'),
 
-  flowerOffset = 300 // offset from bottom
+  flowerOffset = 475 // offset from bottom
 
 class IntroScene extends Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class IntroScene extends Component {
           : null // closed state
     return (
       <LinearGradient colors={['rgb(175,149,197)', 'rgb(209,109,132)']} style={styles.container} >
-        <ScrollView style={styles.scroll} scrollEventThrottle={12} onScroll={(e) => {
+        <ScrollView style={styles.scroll} scrollEventThrottle={16} onScroll={(e) => {
           // flower scroll fx
           const y = e.nativeEvent.contentOffset.y,
            flowerOpacity = y <= 2
@@ -177,7 +177,7 @@ const window = Dimensions.get('window'),
     },
     button: {
       flex: 1,
-      borderWidth: 1.5,
+      borderWidth: 1,
       borderColor: textColor,
       padding: 5,
       paddingLeft: grid,
@@ -191,7 +191,6 @@ const window = Dimensions.get('window'),
       paddingRight: grid,
     },
     buttonText: {
-      flex: 1,
       textAlign: 'center',
       fontWeight: '600',
       color: textColor,
@@ -203,7 +202,7 @@ const window = Dimensions.get('window'),
     },
     tourContainer: {
       padding: grid,
-      marginTop: height - (grid * 36),
+      marginTop: height - (grid * 25),
       marginBottom: grid * 1.5,
       backgroundColor: themeColor,
     },
