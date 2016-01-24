@@ -16,7 +16,8 @@ const {
   LinkedIcon     = require('./LinkedIcon'),
   Newsletter     = require('./Newsletter'),
 
-  flowerOffset = 475 // offset from bottom
+  flowerOffset = -86,  // offset from bottom
+  flowerMax    = 100   // offset before disappear
 
 class IntroScene extends Component {
   constructor(props) {
@@ -34,20 +35,20 @@ class IntroScene extends Component {
   }
 
   componentDidMount() {
-    this.buildIn() // go!
+    setTimeout(this.buildIn.bind(this), 10) // yield & go!
   }
 
   buildIn() {
     const timing = Animated.timing, easing = Easing.out(Easing.quad)
     Animated.stagger(80, [
-      timing(this.state.fadeInBody, {toValue: 1, duration: 100, easing }),
-      timing(this.state.fadeInLogo, {toValue: 1, duration: 300}),
-      timing(this.state.fadeInHeader, {toValue: 1, duration: 600, easing }),
-      timing(this.state.fadeInIcons, {toValue: 1, duration: 1100, easing }),
+      timing(this.state.fadeInBody, {toValue: 1, duration: 200, easing }),
+      timing(this.state.fadeInLogo, {toValue: 1, duration: 500}),
+      timing(this.state.fadeInHeader, {toValue: 1, duration: 900, easing }),
+      timing(this.state.fadeInIcons, {toValue: 1, duration: 1300, easing }),
     ]).start()
     Animated.stagger(100, [
-      timing(this.state.flowerOpacity, {toValue: 1, duration: 700}),
-      timing(this.state.upFlower, {toValue: -50, duration: 700, easing}),
+      timing(this.state.flowerOpacity, {toValue: 1, duration: 1000}),
+      timing(this.state.upFlower, {toValue: flowerOffset, duration: 1000, easing}),
     ]).start()
   }
 
@@ -61,31 +62,38 @@ class IntroScene extends Component {
             }} />
           : null // closed state
     return (
-      <LinearGradient colors={['rgb(175,149,197)', 'rgb(209,109,132)']} style={styles.container} >
-        <ScrollView style={styles.scroll} scrollEventThrottle={16} onScroll={(e) => {
+      <LinearGradient colors={['rgb(175,149,197)', 'rgb(209,109,132)']} style={styles.container}>
+        <Animated.Image // flower
+          renderToHardwareTextureAndroid = {true}
+          shouldRasterizeIOS             = {true}
+          source                         = {require('./assets/flower.png')}
+          resizeMode                     = {Image.resizeMode.contain}
+          style                          = {[
+            {
+              opacity: this.state.flowerOpacity,
+              transform: [{
+                translateY: this.state.upFlower,
+              }],
+            }, styles.flower]} />
+        <ScrollView style={styles.scroll} scrollEventThrottle={15} onScroll={(e) => {
           // flower scroll fx
           const y = e.nativeEvent.contentOffset.y,
-           flowerOpacity = y <= 2
-             ? 1                 // show
-             : y >= flowerOffset // hard limit to disappear
+            yParallaxFactor = y / 3 + flowerOffset,
+            flowerOpacity   = y <= 2
+              ? 1              // show
+              : yParallaxFactor >= flowerMax // hard limit to disappear
                 ? 0
-                : 1 / (y / 15)   // fast fade
-          this.setState({upFlower: y, flowerOpacity})
+                : 1 / (y / 20) // fast fade
+          this.setState({
+            upFlower: yParallaxFactor <= flowerOffset
+              ? -(yParallaxFactor - flowerOffset * 2) // exceeded top, so-- snap-bounce back down (instead of up)
+              : yParallaxFactor,                      // usual parallax downward
+            flowerOpacity})
         }}>
           <Animated.Image // flume logo
             source={require('./assets/logo.png')}
             resizeMode={Image.resizeMode.contain}
             style={[{opacity: this.state.fadeInLogo}, styles.logo]} />
-          <Animated.Image // flower
-            source     = {require('./assets/flower.png')}
-            resizeMode = {Image.resizeMode.contain}
-            style      = {[
-              {
-                opacity: this.state.flowerOpacity,
-                transform: [{
-                  translateY: this.state.upFlower,
-                }],
-              }, styles.flower]} />
           <Animated.View // bigger buttons
             style={{backgroundColor: 'transparent', opacity: this.state.fadeInHeader}}>
             <View style={styles.row}>
@@ -239,7 +247,6 @@ const window = Dimensions.get('window'),
       marginBottom: grid * 4,
     },
     flower: {
-      bottom: flowerOffset,
       position: 'absolute',
       width: width,
       backgroundColor: 'transparent',
