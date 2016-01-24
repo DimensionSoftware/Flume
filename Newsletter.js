@@ -1,5 +1,6 @@
 
 const {
+  AsyncStorage,
   Animated,
   Easing,
   Text,
@@ -8,9 +9,8 @@ const {
   View,
   LinkingIOS,
 } = React,
-
-  Icon = require('react-native-iconic-font/fontawesome'),
-  Form = require('react-native-form'),
+  Icon    = require('react-native-iconic-font/fontawesome'),
+  Form    = require('react-native-form'),
 
   validBorder     = '#383083',
   invalidBorder   = 'red',
@@ -33,22 +33,50 @@ class Newsletter extends Component {
     }
   }
 
-  close() { // animate out
+  close() {
+    // save
+    this.setFormValue('email')
+    this.setFormValue('zip')
+     // animate out
     Animated.stagger(0, [
       timing(this.state.y, {toValue: 100, duration: 200, easing}),
       timing(this.state.opacity, {toValue: 0, duration: 200, easing})])
         .start(this.props.onClose) // cb
   }
 
-  componentDidMount() {
-    timing(this.state.backgroundColor, {toValue: 300, duration: 400, easing}).start()
+  componentWillMount() { // XXX this janks a bit
+    this.getInitialStateAsync().done()
+  }
+
+  componentDidMount() { // TODO wait for WillMount?  "blends" with fast animation:
+    timing(this.state.backgroundColor, {toValue: 300, duration: 400, easing})
+      .start()
+  }
+
+  async getInitialStateAsync() {
+    const // from async storage
+      email       = await AsyncStorage.getItem('email'),
+      zip         = await AsyncStorage.getItem('zip')
+      hasSignedUp = await AsyncStorage.getItem('hasSignedUp')
+    this.setState({email, zip, hasSignedUp})
+  }
+
+  set(key, value) {
+    AsyncStorage.setItem(key, value)
+  }
+
+  setFormValue(key) {
+    this.set(key, this.refs.form.getValues()[key])
   }
 
   render() {
     const bgColor = this.state.backgroundColor.interpolate({
       inputRange: [0, 300],
       outputRange: ['rgba(90, 84, 185, 0)', 'rgba(90, 84, 185, .85)']
-    })
+    }),
+      headerText = this.state.hasSignedUp
+        ? 'THANK YOU!'
+        : 'MAILING LIST'
     return (
         <Animated.View style={[{
           opacity: this.state.opacity,
@@ -62,7 +90,7 @@ class Newsletter extends Component {
             onPress={this.close.bind(this)}>
             <Text style={[styles.header, styles.close]}>{Icon('check')}</Text>
           </TouchableHighlight>
-          <Text style={styles.header}>MAILING LIST</Text>
+          <Text style={styles.header}>{headerText}</Text>
           <Form ref='form'>
             <TextInput // email address
               name                 = {'email'}
@@ -73,6 +101,8 @@ class Newsletter extends Component {
               keyboardType         = {'email-address'}
               placeholderTextColor = {placeholderText}
               style                = {[styles.input, {borderColor: this.state.borderEmail}]}
+              onEndEditing         = {this.set.bind(this, 'email')}
+              defaultValue         = {this.state.email}
               placeholder          = {'EMAIL'} />
             <TextInput // zipcode
               name                 = {'zip'}
@@ -81,6 +111,8 @@ class Newsletter extends Component {
               keyboardType         = {'numeric'}
               placeholderTextColor = {placeholderText}
               style                = {[styles.input, {borderColor: this.state.borderZip}]}
+              onEndEditing         = {this.set.bind(this, 'zip')}
+              defaultValue         = {this.state.zip}
               placeholder          = {'ZIPCODE'} />
           </Form>
           <TouchableHighlight
@@ -103,10 +135,16 @@ class Newsletter extends Component {
                   input_1: email,
                   input_2: zip,
                 })
-              }).then(function(res) {
-                // TODO fun, friendly thank you
-                if (res.status === 200) this.close()
-                console.log('res: ', res, res.json())
+              }).then((res) => {
+                // thank you
+                if (res.status === 200) {
+                  this.set('hasSignedUp', (new Date).toString()) // save
+                  this.setState({hasSignedUp: true})             // state
+                  setTimeout(this.close.bind(this), 2000)        // close
+                } else {
+                  // TODO problem
+                  console.log(`error from mailing list: ${res}`)
+                }
               })
             }}
           >
