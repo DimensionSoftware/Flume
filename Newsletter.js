@@ -14,7 +14,10 @@ const {
 
   validBorder     = '#383083',
   invalidBorder   = 'red',
-  placeholderText = '#7870c3'
+  placeholderText = '#7870c3',
+
+  timing = Animated.timing,
+  easing = Easing.out(Easing.quad)
 
 class Newsletter extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class Newsletter extends Component {
       // container defaults
       y:       new Animated.Value(0),
       opacity: new Animated.Value(1),
+      backgroundColor: new Animated.Value(200),
 
       borderEmail: validBorder,
       borderZip:   validBorder,
@@ -30,18 +34,25 @@ class Newsletter extends Component {
   }
 
   close() { // animate out
-    const timing = Animated.timing,
-      easing = Easing.out(Easing.quad)
     Animated.stagger(0, [
-      timing(this.state.y, {toValue: 100, duration: 200, easing }),
-      timing(this.state.opacity, {toValue: 0, duration: 200, easing })])
+      timing(this.state.y, {toValue: 100, duration: 200, easing}),
+      timing(this.state.opacity, {toValue: 0, duration: 200, easing})])
         .start(this.props.onClose) // cb
   }
 
+  componentDidMount() {
+    timing(this.state.backgroundColor, {toValue: 300, duration: 400, easing}).start()
+  }
+
   render() {
+    const bgColor = this.state.backgroundColor.interpolate({
+      inputRange: [0, 300],
+      outputRange: ['rgba(90, 84, 185, 0)', 'rgba(90, 84, 185, .85)']
+    })
     return (
         <Animated.View style={[{
           opacity: this.state.opacity,
+          backgroundColor: bgColor,
           transform: [{
             translateY: this.state.y,
           }],
@@ -81,7 +92,7 @@ class Newsletter extends Component {
               this.setState({borderZip: (zip.length < 5 || zip.match(/[^\d]/)) ? invalidBorder : validBorder})
               if (this.borderEmail === invalidBorder || this.borderZip === invalidBorder) return false // guard
 
-              // TODO ajax POST
+              // ajax POST
               fetch('http://www.flumemusic.com/', {
                 method: 'POST',
                 headers: {
@@ -110,7 +121,6 @@ class Newsletter extends Component {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    backgroundColor: 'rgba(90,84,185,0.85)',
     top: 0,
     marginTop: -220,
     alignItems: 'center',
@@ -128,6 +138,7 @@ const styles = StyleSheet.create({
     letterSpacing: 4,
   },
   close: {
+    padding: grid, // bigger click-area
     fontFamily: 'fontawesome',
     marginBottom: grid * 2,
   },
@@ -149,7 +160,7 @@ const styles = StyleSheet.create({
     borderColor: textColor,
     padding: 20,
     paddingVertical: 5,
-    marginTop: grid,
+    marginTop: grid * 3,
     fontSize: 15,
     letterSpacing: 1,
   }
