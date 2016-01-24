@@ -41,14 +41,14 @@ class IntroScene extends Component {
   buildIn() {
     const timing = Animated.timing, easing = Easing.out(Easing.quad)
     Animated.stagger(80, [
-      timing(this.state.fadeInBody, {toValue: 1, duration: 200, easing }),
-      timing(this.state.fadeInLogo, {toValue: 1, duration: 500}),
-      timing(this.state.fadeInHeader, {toValue: 1, duration: 900, easing }),
-      timing(this.state.fadeInIcons, {toValue: 1, duration: 1300, easing }),
+      timing(this.state.fadeInBody, {toValue: 1, duration: 500, easing }),
+      timing(this.state.fadeInLogo, {toValue: 1, duration: 800}),
+      timing(this.state.fadeInHeader, {toValue: 1, duration: 1200, easing }),
+      timing(this.state.fadeInIcons, {toValue: 1, duration: 1600, easing }),
     ]).start()
     Animated.stagger(100, [
-      timing(this.state.flowerOpacity, {toValue: 1, duration: 1000}),
-      timing(this.state.upFlower, {toValue: flowerOffset, duration: 1000, easing}),
+      timing(this.state.flowerOpacity, {toValue: 1, duration: 1100}),
+      timing(this.state.upFlower, {toValue: flowerOffset, duration: 1200, easing}),
     ]).start()
   }
 
@@ -138,13 +138,13 @@ class IntroScene extends Component {
               onReady={() =>{this.setState({youTubeReady: true})}} />
           </Animated.View>
           <Animated.View // youtube "skin" ep ch00nz
-            style={[styles.preview, {opacity: this.state.fadeInBody}]}>
+            style={[styles.preview, {backgroundColor: 'rgba(152,117,183, .9)', opacity: this.state.fadeInBody}]}>
             <Text style={styles.tour}>SKIN EP</Text>
             <Text style={styles.tour}>PREVIEW</Text>
             <YouTube
               ref='youtube'
               play={false}
-              style={styles.youtube}
+              style={[styles.youtube,{marginTop: grid * 2}]}
               videoId='Su9tda5VZDE'
               hidden={!this.state.youTubeReady}
               playsInline={true}
