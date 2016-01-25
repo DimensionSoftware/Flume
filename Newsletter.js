@@ -30,6 +30,7 @@ class Newsletter extends Component {
 
       borderEmail: validBorder,
       borderZip:   validBorder,
+      enabled:     true,
     }
   }
 
@@ -66,6 +67,7 @@ class Newsletter extends Component {
   }
 
   setFormValue(key) {
+    if (!this.refs.form) return // guard
     this.set(key, this.refs.form.getValues()[key])
   }
 
@@ -101,7 +103,7 @@ class Newsletter extends Component {
               keyboardType         = {'email-address'}
               placeholderTextColor = {placeholderText}
               style                = {[styles.input, {borderColor: this.state.borderEmail}]}
-              onEndEditing         = {this.set.bind(this, 'email')}
+              onEndEditing         = {this.setFormValue.bind(this, 'email')}
               defaultValue         = {this.state.email}
               placeholder          = {'EMAIL'} />
             <TextInput // zipcode
@@ -111,20 +113,26 @@ class Newsletter extends Component {
               keyboardType         = {'numeric'}
               placeholderTextColor = {placeholderText}
               style                = {[styles.input, {borderColor: this.state.borderZip}]}
-              onEndEditing         = {this.set.bind(this, 'zip')}
+              onEndEditing         = {this.setFormValue.bind(this, 'zip')}
               defaultValue         = {this.state.zip}
               placeholder          = {'ZIPCODE'} />
           </Form>
           <TouchableHighlight
             underlayColor='transparent'
             onPress={() => { // attempt subscribe:
-              var {zip,email} = this.refs.form.getValues()
+              if (!this.refs.form) return // guard
+
               // validate
+              var {zip,email} = this.refs.form.getValues()
               this.setState({borderEmail: email.indexOf('@') === -1 ? invalidBorder : validBorder})
               this.setState({borderZip: (zip.length < 5 || zip.match(/[^\d]/)) ? invalidBorder : validBorder})
-              if (this.borderEmail === invalidBorder || this.borderZip === invalidBorder) return false // guard
+
+              // guards
+              if (this.state.borderEmail === invalidBorder || this.state.borderZip === invalidBorder) return false // guard
+              if (!this.state.enabled) return // guard
 
               // ajax POST
+              this.setState({enabled:false})
               fetch('http://www.flumemusic.com/', {
                 method: 'POST',
                 headers: {
@@ -144,11 +152,14 @@ class Newsletter extends Component {
                 } else {
                   // TODO problem
                   console.log(`error from mailing list: ${res}`)
+                  this.setState({enabled:true})
                 }
               })
             }}
           >
-            <Text style={[styles.header, styles.button]}>SAVE</Text>
+            <Text style={[styles.header, styles.button, {
+              borderColor: this.state.enabled ? textColor : darkThemeColor,
+              color: this.state.enabled ? textColor : darkThemeColor}]}>SAVE</Text>
           </TouchableHighlight>
         </Animated.View>
     )
@@ -184,7 +195,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 300,
     alignSelf: 'center',
-    backgroundColor: '#484093',
+    backgroundColor: darkThemeColor,
     padding: 15,
     paddingVertical: 10,
     color: textColor,

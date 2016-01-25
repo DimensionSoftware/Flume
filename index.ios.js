@@ -24,9 +24,10 @@ global.StyleSheet = StyleSheet
 global.Animated   = Animated
 
 // "stylesheet" theme variables
-global.grid       = 10,
-global.textColor  = '#fff'
-global.themeColor = 'rgba(122,87,153,.7)'
+global.grid           = 10,
+global.textColor      = '#fff'
+global.themeColor     = 'rgba(122,87,153,.7)'
+global.darkThemeColor = '#484093'
 
 const IntroScene = require('./IntroScene')
 
