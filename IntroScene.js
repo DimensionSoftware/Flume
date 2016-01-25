@@ -7,6 +7,7 @@ const {
   Image,
   TextInput,
   Text,
+  TouchableHighlight,
   LinkingIOS,
   ScrollView,
   View,
@@ -122,7 +123,11 @@ class IntroScene extends Component {
           </Animated.View>
           <Animated.View // TODO songkick.com tour
             style={[styles.tourContainer, {opacity: this.state.fadeInBody}]}>
-            <Text style={styles.tour}>TOUR</Text>
+            <TouchableHighlight underlayColor='transparent' onPress={() => {
+              LinkingIOS.openURL('http://www.songkick.com/artists/3645486')
+            }}>
+              <Text style={styles.tour}>TOUR</Text>
+            </TouchableHighlight>
           </Animated.View>
           <Animated.View // TODO soundcloud.com "never be like you" ch00nz
           />
