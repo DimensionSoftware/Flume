@@ -20,6 +20,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		533322591C56AF8800CA76C8 /* 78539766.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 533322581C56AF8800CA76C8 /* 78539766.ttf */; };
 		5356BAF01C5549BD0013BA95 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5356BAEF1C5549BD0013BA95 /* LaunchScreen.xib */; };
 		53C93FD71C4B631400F35236 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C93FD61C4B630A00F35236 /* libBVLinearGradient.a */; };
 		53C93FDE1C4B6AC900F35236 /* libRCTYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C93FDD1C4B6AC500F35236 /* libRCTYouTube.a */; };
@@ -141,6 +142,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = flume/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = flume/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		533322581C56AF8800CA76C8 /* 78539766.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 78539766.ttf; sourceTree = "<group>"; };
 		5356BAEF1C5549BD0013BA95 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		53C93FD11C4B630A00F35236 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		53C93FD81C4B6AC500F35236 /* RCTYouTube.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTYouTube.xcodeproj; path = "../node_modules/react-native-youtube/RCTYouTube.xcodeproj"; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				53F364331C50224D00DA4BAF /* fontawesome.ttf */,
+				533322581C56AF8800CA76C8 /* 78539766.ttf */,
 				53C9BE5C1C4F61AB001C571B /* YTPlayerView-iframe-player.html */,
 				53C93FD81C4B6AC500F35236 /* RCTYouTube.xcodeproj */,
 				53C93FD11C4B630A00F35236 /* BVLinearGradient.xcodeproj */,
@@ -574,6 +577,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				533322591C56AF8800CA76C8 /* 78539766.ttf in Resources */,
 				5356BAF01C5549BD0013BA95 /* LaunchScreen.xib in Resources */,
 				53C9BE5D1C4F61AB001C571B /* YTPlayerView-iframe-player.html in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,

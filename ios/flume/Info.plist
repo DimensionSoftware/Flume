@@ -31,6 +31,7 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>78539766.ttf</string>
 		<string>fontawesome.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

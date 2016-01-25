@@ -180,11 +180,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   header: {
+    fontFamily: 'Swiss721BT-Light',
     alignSelf: 'center',
     color: textColor,
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 22,
     letterSpacing: 4,
+    marginBottom: grid,
   },
   close: {
     padding: grid, // bigger click-area
@@ -195,6 +197,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 300,
     alignSelf: 'center',
+    fontFamily: 'Swiss721BT-Light',
     backgroundColor: darkThemeColor,
     padding: 15,
     paddingVertical: 10,
@@ -206,6 +209,7 @@ const styles = StyleSheet.create({
   },
   button: {
     borderWidth: 1,
+    fontFamily: 'Swiss721BT-Light',
     borderColor: textColor,
     padding: 20,
     paddingVertical: 5,
