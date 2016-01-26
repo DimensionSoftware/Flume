@@ -121,16 +121,7 @@ class IntroScene extends Component {
               <LinkedIcon icon='apple'      href='https://itunes.apple.com/au/artist/flume/id4275634?app=itunes' />
             </View>
           </Animated.View>
-          <Animated.View // TODO songkick.com tour
-            style={[styles.tourContainer, {opacity: this.state.fadeInBody}]}>
-            <TouchableHighlight underlayColor='transparent' onPress={() => {
-              LinkingIOS.openURL('http://www.songkick.com/artists/3645486')
-            }}>
-              <Text style={styles.tour}>TOUR</Text>
-            </TouchableHighlight>
-          </Animated.View>
-          <Animated.View // TODO soundcloud.com "never be like you" ch00nz
-          />
+          <TourDates />
           <Animated.View // youtube (for now) "never be like you" ch00nz
             style={[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0, opacity: this.state.fadeInBody}]}>
             <YouTube
