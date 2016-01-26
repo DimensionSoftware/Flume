@@ -6,6 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "color": "^0.11.1",
     "react-native": "^0.18.1",
     "react-native-form": "^1.0.6",
     "react-native-iconic-font": "0.0.6",

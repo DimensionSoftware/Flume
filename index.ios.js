@@ -28,6 +28,7 @@ global.grid           = 10,
 global.textColor      = '#fff'
 global.themeColor     = 'rgba(122,87,153,.7)'
 global.darkThemeColor = '#484093'
+global.fontFamily     = 'Swiss721BT-Light'
 
 const IntroScene = require('./IntroScene')
 

@@ -14,17 +14,18 @@ const {
 } = React,
   LinearGradient = require('react-native-linear-gradient'),
   YouTube        = require('react-native-youtube'),
+  color          = require('color'),
   LinkedIcon     = require('./LinkedIcon'),
   Newsletter     = require('./Newsletter'),
+  TourDates      = require('./TourDates'),
 
   flowerOffset = -86,  // offset from bottom
-  flowerMax    = 100   // offset before disappear
+  flowerMax    = 180   // offset before disappear
 
 class IntroScene extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fadeInBody:     new Animated.Value(0),
       fadeInLogo:     new Animated.Value(0),
       fadeInHeader:   new Animated.Value(0),
       fadeInIcons:    new Animated.Value(0),
@@ -42,22 +43,21 @@ class IntroScene extends Component {
   buildIn() {
     const timing = Animated.timing, easing = Easing.out(Easing.quad)
     Animated.stagger(80, [
-      timing(this.state.fadeInBody, {toValue: 1, duration: 500, easing }),
-      timing(this.state.fadeInLogo, {toValue: 1, duration: 800}),
+      timing(this.state.fadeInLogo,   {toValue: 1, duration: 800}),
       timing(this.state.fadeInHeader, {toValue: 1, duration: 1200, easing }),
-      timing(this.state.fadeInIcons, {toValue: 1, duration: 1600, easing }),
+      timing(this.state.fadeInIcons,  {toValue: 1, duration: 1600, easing }),
     ]).start()
     Animated.stagger(100, [
       timing(this.state.flowerOpacity, {toValue: 1, duration: 1100}),
-      timing(this.state.upFlower, {toValue: flowerOffset, duration: 1200, easing}),
+      timing(this.state.upFlower,      {toValue: flowerOffset, duration: 1200, easing}),
     ]).start()
   }
 
-  render() {
+  render() { // TODO refactor flower & header into individual classes
     const { onScroll = () => {} } = this.props,
-      newsletter =
+      newsletter = // toggles visibility
         this.state.showNewsletter
-          ? <Newsletter 
+          ? <Newsletter
             onClose={() => { // close!
               this.setState({showNewsletter: false })
             }} />
@@ -76,15 +76,15 @@ class IntroScene extends Component {
                 translateY: this.state.upFlower,
               }],
             }, styles.flower]} />
-        <ScrollView style={styles.scroll} scrollEventThrottle={15} onScroll={(e) => {
+        <ScrollView style={styles.scroll} scrollEventThrottle={14} onScroll={(e) => {
           // flower scroll fx
           const y = e.nativeEvent.contentOffset.y,
             yParallaxFactor = y / 3 + flowerOffset,
-            flowerOpacity   = y <= 2
+            flowerOpacity   = y <= 4
               ? 1              // show
               : yParallaxFactor >= flowerMax // hard limit to disappear
                 ? 0
-                : 1 / (y / 20) // fast fade
+                : 1 / (y / 70) // fast fade
           this.setState({
             upFlower: yParallaxFactor <= flowerOffset
               ? -(yParallaxFactor - flowerOffset * 2) // exceeded top, so-- snap-bounce back down (instead of up)
@@ -123,7 +123,7 @@ class IntroScene extends Component {
           </Animated.View>
           <TourDates />
           <Animated.View // youtube (for now) "never be like you" ch00nz
-            style={[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0, opacity: this.state.fadeInBody}]}>
+            style={[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]}>
             <YouTube
               ref='youtube'
               play={false}
@@ -134,9 +134,9 @@ class IntroScene extends Component {
               onReady={() =>{this.setState({youTubeReady: true})}} />
           </Animated.View>
           <Animated.View // youtube "skin" ep ch00nz
-            style={[styles.preview, {backgroundColor: 'rgba(152,117,183, .9)', opacity: this.state.fadeInBody}]}>
-            <Text style={styles.tour}>SKIN EP</Text>
-            <Text style={styles.tour}>PREVIEW</Text>
+            style={[styles.preview, {backgroundColor: color(darkThemeColor).lighten(.2).clearer(.8).rgbaString()}]}>
+            <Text style={styles.header}>SKIN EP</Text>
+            <Text style={styles.header}>PREVIEW</Text>
             <YouTube
               ref='youtube'
               play={false}
@@ -196,7 +196,7 @@ const window = Dimensions.get('window'),
       paddingRight: grid,
     },
     buttonText: {
-      fontFamily: 'Swiss721BT-Light',
+      fontFamily,
       textAlign: 'center',
       fontWeight: '600',
       color: textColor,
@@ -206,14 +206,8 @@ const window = Dimensions.get('window'),
       marginRight: -14, // stretch right-most item
       marginLeft: -14,  // " left-most
     },
-    tourContainer: {
-      padding: grid,
-      marginTop: height - (grid * 27),
-      marginBottom: grid * 1.5,
-      backgroundColor: themeColor,
-    },
-    tour: {
-      fontFamily: 'Swiss721BT-Light',
+    header: {
+      fontFamily,
       letterSpacing: 3,
       fontSize: 50,
       color: textColor,
@@ -224,8 +218,8 @@ const window = Dimensions.get('window'),
       padding: grid,
       marginTop: grid * 2,
       borderWidth: 1,
-      borderColor:textColor,
-      backgroundColor: themeColor,
+      borderColor: color(textColor).clearer(.6).rgbaString(),
+      backgroundColor: color(themeColor).darken(.2).rgbString(),
     },
     youtube: {
       alignSelf: 'stretch',
@@ -238,11 +232,11 @@ const window = Dimensions.get('window'),
       alignSelf: 'center',
     },
     copy: {
-      fontFamily: 'Swiss721BT-Light',
+      fontFamily,
       color: textColor,
       alignSelf: 'center',
       fontWeight: '300',
-      fontSize: 12,
+      fontSize: 11,
       marginTop: -grid * 7.5,
       marginBottom: grid * 4,
     },

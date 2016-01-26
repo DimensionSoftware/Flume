@@ -146,7 +146,7 @@ class Newsletter extends Component {
               }).then((res) => {
                 // thank you
                 if (res.status === 200) {
-                  this.set('hasSignedUp', (new Date).toString()) // save
+                  this.set('hasSignedUp', (new Date).toString()) // save time
                   this.setState({hasSignedUp: true})             // state
                   setTimeout(this.close.bind(this), 2000)        // close
                 } else {
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: textColor,
     fontWeight: 'bold',
-    fontSize: 22,
+    fontSize: 25,
     letterSpacing: 4,
     marginBottom: grid,
   },
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingVertical: 5,
     marginTop: grid * 3,
-    fontSize: 15,
+    fontSize: 17,
     letterSpacing: 1,
   }
 })
