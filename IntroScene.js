@@ -37,7 +37,11 @@ class IntroScene extends Component {
   }
 
   componentDidMount() {
-    setTimeout(this.buildIn.bind(this), 10) // yield & go!
+    this.timer = setTimeout(this.buildIn.bind(this), 10) // yield & go!
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer) // cleanup
   }
 
   buildIn() {
