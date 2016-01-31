@@ -261,7 +261,7 @@ const window = Dimensions.get('window'),
       alignSelf: 'center',
       height: 20,
       flex: 1,
-      marginBottom: grid * 2,
+      marginVertical: grid * 2,
     },
   })
 
