@@ -123,6 +123,17 @@ class IntroScene extends Component {
           </Animated.View>
           <TourDates />
           <Image source={require('./assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />
+          <Animated.View // youtube "smoke and retribution" ch00nz
+            style={[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]}>
+            <YouTube
+              ref='youtube'
+              play={false}
+              style={styles.youtube}
+              videoId='4fAzM5cI5FM'
+              hidden={!this.state.youTubeReady}
+              playsInline={true}
+              onReady={() =>{this.setState({youTubeReady: true})}} />
+          </Animated.View>
           <Animated.View // youtube (for now) "never be like you" ch00nz
             style={[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]}>
             <YouTube
