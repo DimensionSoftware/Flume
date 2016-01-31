@@ -10,6 +10,16 @@ Flume Music App
 
   Press Command+R in XCode to Build &amp; Run!
 
+## Booting a Store-Ready, Self-Contained App
+
+1. [Follow Facebook's Guide to Running on Devices]https://facebook.github.io/react-native/docs/running-on-device-ios.html#content
+2. If those instructions result in a white screen, go ahead and manually build the bundle, something like:
+
+    $ react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output '$USER/Library/Developer/Xcode/DerivedData/flume-cbuhusheunfkxicfvhazobezyzdt/Build/Products/Release-iphoneos/Flume Music.app/main.jsbundle' --assets-dest '/Users/$USER/Library/Developer/Xcode/DerivedData/flume-cbuhusheunfkxicfvhazobezyzdt/Build/Products/Release-iphoneos/Flume Music.app'
+
+    Your exact command should be toward the end of the Build Output from Xcode -> Build Phases -> Bundle React Native code and images
+
+
 &nbsp;
 
 [![Fresh Software by Dimension](https://dimensionsoftware.com/images/software_by.png)](https://dimensionsoftware.com)

@@ -50,7 +50,7 @@ class Newsletter extends Component {
   }
 
   componentDidMount() { // TODO wait for WillMount?  "blends" with fast animation:
-    timing(this.state.backgroundColor, {toValue: 300, duration: 400, easing})
+    timing(this.state.backgroundColor, {toValue: 300, duration: 500, easing})
       .start()
   }
 

@@ -2,7 +2,6 @@
 const {
   Dimensions,
   AsyncStorage,
-  Animated,
   Easing,
   Text,
   TextInput,
@@ -10,10 +9,7 @@ const {
   View,
   LinkingIOS,
 } = React,
-  color = require('color'),
-
-  timing = Animated.timing,
-  easing = Easing.out(Easing.quad)
+  color = require('color')
 
 class TourDates extends Component {
   constructor(props) {
@@ -84,7 +80,7 @@ const window = Dimensions.get('window'),
     padding: grid,
     marginTop: height - (grid * 27),
     marginBottom: grid * 1.5,
-    backgroundColor: color(themeColor).clearer(.3).rgbaString(),
+    backgroundColor: color(themeColor).clearer(.4).rgbaString(),
     flex: 1,
   },
   tour: {

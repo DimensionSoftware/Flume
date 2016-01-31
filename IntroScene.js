@@ -37,10 +37,10 @@ class IntroScene extends Component {
   }
 
   componentDidMount() {
-    setTimeout(this.buildIn.bind(this), 10) // yield & go!
+    setTimeout(this.buildIn.bind(this), 1) // yield & go!
   }
 
-  buildIn() {
+  buildIn() { // fluidly fade-in scene, riffs off flumemusic.com
     const timing = Animated.timing, easing = Easing.out(Easing.quad)
     Animated.stagger(80, [
       timing(this.state.fadeInLogo,   {toValue: 1, duration: 800}),
@@ -76,7 +76,7 @@ class IntroScene extends Component {
                 translateY: this.state.upFlower,
               }],
             }, styles.flower]} />
-        <ScrollView style={styles.scroll} scrollEventThrottle={14} onScroll={(e) => {
+        <ScrollView style={styles.scroll} scrollEventThrottle={16} onScroll={(e) => {
           // flower scroll fx
           const y = e.nativeEvent.contentOffset.y,
             yParallaxFactor = y / 3 + flowerOffset,
@@ -145,7 +145,7 @@ class IntroScene extends Component {
               playsInline={true}
               onReady={() =>{this.setState({youTubeReady: true})}} />
           </Animated.View>
-          <Animated.View // youtube "skin" ep ch00nz
+          <View // youtube "skin" ep ch00nz
             style={[styles.preview, {backgroundColor: color(darkThemeColor).lighten(.2).clearer(.8).rgbaString()}]}>
             <Text style={styles.header}>SKIN EP</Text>
             <Text style={styles.header}>PREVIEW</Text>
@@ -157,7 +157,7 @@ class IntroScene extends Component {
               hidden={!this.state.youTubeReady}
               playsInline={true}
               onReady={() =>{this.setState({youTubeReady: true})}} />
-          </Animated.View>
+          </View>
           <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
           <Text style={styles.copy}>© FLUME {new Date().getFullYear()}  ●  SITE: MANUFACTUR X FLUME</Text>
         </ScrollView>
@@ -231,7 +231,7 @@ const window = Dimensions.get('window'),
       marginTop: grid * 2,
       borderWidth: 1,
       borderColor: color(textColor).clearer(.6).rgbaString(),
-      backgroundColor: color(themeColor).darken(.2).rgbString(),
+      backgroundColor: color(themeColor).darken(.05).rgbString(),
     },
     youtube: {
       alignSelf: 'stretch',
