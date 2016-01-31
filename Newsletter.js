@@ -54,6 +54,10 @@ class Newsletter extends Component {
       .start()
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timer) // cleanup
+  }
+
   async getInitialStateAsync() {
     const // from async storage
       email       = await AsyncStorage.getItem('email'),
@@ -146,9 +150,9 @@ class Newsletter extends Component {
               }).then((res) => {
                 // thank you
                 if (res.status === 200) {
-                  this.set('hasSignedUp', (new Date).toString()) // save time
-                  this.setState({hasSignedUp: true})             // state
-                  setTimeout(this.close.bind(this), 2000)        // close
+                  this.set('hasSignedUp', (new Date).toString())       // save time
+                  this.setState({hasSignedUp: true})                   // state
+                  this.timer = setTimeout(this.close.bind(this), 2000) // close
                 } else {
                   // TODO problem
                   console.log(`error from mailing list: ${res}`)
