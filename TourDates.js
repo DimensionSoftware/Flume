@@ -27,7 +27,7 @@ class TourDates extends Component {
     this.getInitialStateAsync().done()
 
     // fetch latest from songkick api
-    fetch('http://api.songkick.com/api/3.0/artists/3645486/calendar.json?apikey=io09K9l3ebJxmxe2', {
+    fetch('http://api.songkick.com/api/3.0/artists/3645486/calendar.json?apikey=yNWW8T6ehHnjZwL4', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

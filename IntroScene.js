@@ -122,6 +122,7 @@ class IntroScene extends Component {
             </View>
           </Animated.View>
           <TourDates />
+          <Image source={require('./assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />
           <Animated.View // youtube (for now) "never be like you" ch00nz
             style={[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]}>
             <YouTube
@@ -244,6 +245,12 @@ const window = Dimensions.get('window'),
       position: 'absolute',
       width: width,
       backgroundColor: 'transparent',
+    },
+    sk: {
+      alignSelf: 'center',
+      height: 20,
+      flex: 1,
+      marginBottom: grid * 2,
     },
   })
 
