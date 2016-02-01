@@ -12,7 +12,7 @@ Flume Music App
 
 ## Booting a Store-Ready, Self-Contained App
 
-1. [Follow Facebook's Guide to Running on Devices]https://facebook.github.io/react-native/docs/running-on-device-ios.html#content
+1. [Follow Facebook's Guide to Running on Devices](https://facebook.github.io/react-native/docs/running-on-device-ios.html#content)
 2. If those instructions result in a white screen, go ahead and manually build the bundle, something like:
 
     $ react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output '$USER/Library/Developer/Xcode/DerivedData/flume-cbuhusheunfkxicfvhazobezyzdt/Build/Products/Release-iphoneos/Flume Music.app/main.jsbundle' --assets-dest '/Users/$USER/Library/Developer/Xcode/DerivedData/flume-cbuhusheunfkxicfvhazobezyzdt/Build/Products/Release-iphoneos/Flume Music.app'
