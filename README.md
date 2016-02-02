@@ -1,3 +1,5 @@
+[![Flume Music](https://dimensionsoftware.com/images/flume.png)](https://dimensionsoftware.com)
+
 Flume Music App
 ===============
 [http://flumemusic.com](http://www.flumemusic.com)
@@ -13,11 +15,12 @@ Flume Music App
 ## Booting a Store-Ready, Self-Contained App
 
 1. [Follow Facebook's Guide to Running on Devices](https://facebook.github.io/react-native/docs/running-on-device-ios.html#content)
+
 2. If those instructions result in a white screen, go ahead and manually build the bundle, something like:
 
-    $ react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output '$USER/Library/Developer/Xcode/DerivedData/flume-cbuhusheunfkxicfvhazobezyzdt/Build/Products/Release-iphoneos/Flume Music.app/main.jsbundle' --assets-dest '/Users/$USER/Library/Developer/Xcode/DerivedData/flume-cbuhusheunfkxicfvhazobezyzdt/Build/Products/Release-iphoneos/Flume Music.app'
+        $ react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output '$USER/Library/Developer/Xcode/DerivedData/flume-cbuhusheunfkxicfvhazobezyzdt/Build/Products/Release-iphoneos/Flume Music.app/main.jsbundle' --assets-dest '/Users/$USER/Library/Developer/Xcode/DerivedData/flume-cbuhusheunfkxicfvhazobezyzdt/Build/Products/Release-iphoneos/Flume Music.app'
 
-    Your exact command should be toward the end of the Build Output from Xcode -> Build Phases -> Bundle React Native code and images
+    Your exact command should be toward the end of the Build Output from:  **Xcode** -> **Build Phases** -> **Bundle React Native code and images**
 
 
 &nbsp;
