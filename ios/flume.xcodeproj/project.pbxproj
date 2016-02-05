@@ -23,6 +23,7 @@
 		533322591C56AF8800CA76C8 /* 78539766.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 533322581C56AF8800CA76C8 /* 78539766.ttf */; };
 		533322671C56B5A300CA76C8 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 533322661C56B5A300CA76C8 /* Media.xcassets */; };
 		5356BAF01C5549BD0013BA95 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5356BAEF1C5549BD0013BA95 /* LaunchScreen.xib */; };
+		53C47D3D1C6541580062BA21 /* Default-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 53C47D3C1C6541580062BA21 /* Default-568h.png */; };
 		53C93FD71C4B631400F35236 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C93FD61C4B630A00F35236 /* libBVLinearGradient.a */; };
 		53C93FDE1C4B6AC900F35236 /* libRCTYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 53C93FDD1C4B6AC500F35236 /* libRCTYouTube.a */; };
 		53C9BE5D1C4F61AB001C571B /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 53C9BE5C1C4F61AB001C571B /* YTPlayerView-iframe-player.html */; };
@@ -146,6 +147,7 @@
 		533322581C56AF8800CA76C8 /* 78539766.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 78539766.ttf; sourceTree = "<group>"; };
 		533322661C56B5A300CA76C8 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		5356BAEF1C5549BD0013BA95 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		53C47D3C1C6541580062BA21 /* Default-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h.png"; path = "../Default-568h.png"; sourceTree = "<group>"; };
 		53C93FD11C4B630A00F35236 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		53C93FD81C4B6AC500F35236 /* RCTYouTube.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTYouTube.xcodeproj; path = "../node_modules/react-native-youtube/RCTYouTube.xcodeproj"; sourceTree = "<group>"; };
 		53C9BE5C1C4F61AB001C571B /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				533322661C56B5A300CA76C8 /* Media.xcassets */,
+				53C47D3C1C6541580062BA21 /* Default-568h.png */,
 				53F364331C50224D00DA4BAF /* fontawesome.ttf */,
 				533322581C56AF8800CA76C8 /* 78539766.ttf */,
 				53C9BE5C1C4F61AB001C571B /* YTPlayerView-iframe-player.html */,
@@ -582,6 +585,7 @@
 			files = (
 				533322591C56AF8800CA76C8 /* 78539766.ttf in Resources */,
 				5356BAF01C5549BD0013BA95 /* LaunchScreen.xib in Resources */,
+				53C47D3D1C6541580062BA21 /* Default-568h.png in Resources */,
 				53C9BE5D1C4F61AB001C571B /* YTPlayerView-iframe-player.html in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				533322671C56B5A300CA76C8 /* Media.xcassets in Resources */,
