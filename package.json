@@ -11,7 +11,6 @@
     "react-native-form": "^1.0.6",
     "react-native-iconic-font": "0.0.6",
     "react-native-linear-gradient": "^1.5.0",
-    "react-native-youtube": "^0.6.0",
-    "react-timer-mixin": "^0.13.3"
+    "react-native-youtube": "^0.6.0"
   }
 }
