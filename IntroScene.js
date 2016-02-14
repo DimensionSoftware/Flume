@@ -15,6 +15,7 @@ const {
   LinearGradient = require('react-native-linear-gradient'),
   YouTube        = require('react-native-youtube'),
   color          = require('color'),
+  SoundCloud     = require('./SoundCloud'),
   LinkedIcon     = require('./LinkedIcon'),
   Newsletter     = require('./Newsletter'),
   TourDates      = require('./TourDates'),
@@ -127,6 +128,7 @@ class IntroScene extends Component {
           </Animated.View>
           <TourDates />
           <Image source={require('./assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />
+          <SoundCloud />
           <Animated.View // youtube "smoke and retribution" ch00nz
             style={[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]}>
             <YouTube
