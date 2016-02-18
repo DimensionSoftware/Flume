@@ -9,7 +9,8 @@ const {
   View,
   LinkingIOS,
 } = React,
-  color = require('color')
+  LinearGradient = require('react-native-linear-gradient'),
+  color          = require('color')
 
 class TourDates extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class TourDates extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <LinearGradient colors={[color(themeColor).clearer(.4).rgbaString(), color(themeColor).clearer(.9).rgbaString()]} style={styles.container}>
         <Text style={styles.header}>TOUR</Text>
         {this.state.tourEvents.map((tour, i) => {
           return (i < 10) // latest N shows
@@ -67,7 +68,7 @@ class TourDates extends Component {
               </View>
             : <View key={i}></View>
         })}
-      </View>
+      </LinearGradient>
     )
   }
 }
@@ -78,9 +79,8 @@ const window = Dimensions.get('window'),
   styles     = StyleSheet.create({
   container: {
     padding: grid,
-    marginTop: grid * 2,
+    marginTop: grid * 2.5,
     marginBottom: grid * 1.5,
-    backgroundColor: color(themeColor).clearer(.4).rgbaString(),
     flex: 1,
   },
   tour: {
