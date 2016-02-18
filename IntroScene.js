@@ -13,12 +13,12 @@ const {
   View,
 } = React,
   LinearGradient = require('react-native-linear-gradient'),
-  YouTube        = require('react-native-youtube'),
   color          = require('color'),
   SoundCloud     = require('./SoundCloud'),
   LinkedIcon     = require('./LinkedIcon'),
   Newsletter     = require('./Newsletter'),
   TourDates      = require('./TourDates'),
+  YouTubeVideo   = require('./YouTubeVideo'),
 
   flowerOffset = -86,  // offset from bottom
   flowerMax    = 180   // offset before disappear
@@ -126,46 +126,33 @@ class IntroScene extends Component {
               <LinkedIcon icon='apple'      href='https://itunes.apple.com/au/artist/flume/id4275634?app=itunes' />
             </View>
           </Animated.View>
-          <Animated.View // official "never be like you" ch00nz
-            style={[styles.preview, styles.headerVideo]}>
-            <YouTube
-              ref='youtube'
-              play={false}
-              style={styles.youtube}
-              videoId='-KPnyf8vwXI'
-              hidden={!this.state.youTubeReady}
-              playsInline={true}
-              onReady={() =>{this.setState({youTubeReady: true})}} />
+
+          <Animated.View>
+            <YouTubeVideo // official "never be like you" ch00nz
+              videoId = {'-KPnyf8vwXI'}
+              style   = {[styles.preview, styles.headerVideo]} />
           </Animated.View>
+
           <TourDates />
           <Image source={require('./assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />
+
           <SoundCloud />
-          <Animated.View // youtube "smoke and retribution" ch00nz
-            style={[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]}>
-            <YouTube
-              ref='youtube'
-              play={false}
-              style={styles.youtube}
-              videoId='4fAzM5cI5FM'
-              hidden={!this.state.youTubeReady}
-              playsInline={true}
-              onReady={() =>{this.setState({youTubeReady: true})}} />
-          </Animated.View>
+
+          <YouTubeVideo // youtube "smoke and retribution" ch00nz
+            videoId = '4fAzM5cI5FM'
+            style   = {[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]} />
           <View // youtube "skin" ep ch00nz
             style={[styles.preview, {backgroundColor: color(darkThemeColor).lighten(.2).clearer(.8).rgbaString()}]}>
             <Text style={styles.header}>SKIN EP</Text>
             <Text style={styles.header}>PREVIEW</Text>
-            <YouTube
-              ref='youtube'
-              play={false}
-              style={[styles.youtube,{marginTop: grid * 2}]}
-              videoId='Su9tda5VZDE'
-              hidden={!this.state.youTubeReady}
-              playsInline={true}
-              onReady={() =>{this.setState({youTubeReady: true})}} />
+            <YouTubeVideo
+              style   = {[styles.youtube,{marginTop: grid * 2}]}
+              videoId = 'Su9tda5VZDE' />
           </View>
+
           <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
           <Text style={styles.copy}>© FLUME {new Date().getFullYear()}  ●  SITE: MANUFACTUR X FLUME</Text>
+
         </ScrollView>
         {newsletter}
       </LinearGradient>
@@ -189,7 +176,7 @@ const window = Dimensions.get('window'),
       backgroundColor: color(themeColor).darken(.5).rgbaString(),
       padding: grid / 2,
       paddingTop: 0,
-      marginTop: height - (grid * 27),
+      marginTop: height - (grid * 26),
       marginBottom: grid,
     },
     scroll: {
@@ -246,12 +233,6 @@ const window = Dimensions.get('window'),
       borderWidth: 1,
       borderColor: color(textColor).clearer(.6).rgbaString(),
       backgroundColor: color(themeColor).darken(.05).rgbString(),
-    },
-    youtube: {
-      alignSelf: 'stretch',
-      height: 170,
-      marginTop: grid,
-      backgroundColor: textColor,
     },
     fc: {
       width: 45,
