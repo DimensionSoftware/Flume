@@ -23,6 +23,10 @@ const {
   flowerOffset = -86,  // offset from bottom
   flowerMax    = 250   // offset before disappear
 
+const window = Dimensions.get('window'),
+  height     = window.height,
+  width      = window.width
+
 class IntroScene extends Component {
   constructor(props) {
     super(props)
@@ -30,10 +34,12 @@ class IntroScene extends Component {
       fadeInLogo:     new Animated.Value(0),
       fadeInHeader:   new Animated.Value(0),
       fadeInIcons:    new Animated.Value(0),
+      fadeInVideo:    new Animated.Value(0), // hidden until
       flowerOpacity:  new Animated.Value(0),
       upFlower:       new Animated.Value(0),
-      showVideo:      0, // hidden until
-      showNewsletter: false,
+      showNewsletter:    false,
+      headerVideoHeight: 0,
+      headerVideoMarginTop: height - (grid * 32)
     }
   }
 
@@ -127,11 +133,19 @@ class IntroScene extends Component {
             </View>
           </Animated.View>
 
-          <Animated.View style={{opacity: this.state.showVideo}}>
+          <Animated.View style={{opacity: this.state.fadeInVideo}}>
             <YouTubeVideo // official "never be like you" ch00nz
               videoId = {'-KPnyf8vwXI'}
-              style   = {[styles.preview, styles.headerVideo]}
-              isReady = {() => this.setState({showVideo: 1})} />
+              style   = {[
+                styles.preview,
+                styles.headerVideo,
+                {marginTop: this.state.headerVideoMarginTop, height: this.state.headerVideoHeight}]}
+              isReady = {() => {
+                this.setState({ // loaded, so-- push Tour down
+                  headerVideoMarginTop: height - (grid * 28),
+                  headerVideoHeight:    190})
+                Animated.timing(this.state.fadeInVideo, {toValue: 1, duration: 300}).start()
+              }} />
           </Animated.View>
 
           <TourDates />
@@ -160,10 +174,7 @@ class IntroScene extends Component {
   }
 }
 
-const window = Dimensions.get('window'),
-  height     = window.height,
-  width      = window.width,
-  styles     = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: 'transparent',
@@ -176,7 +187,6 @@ const window = Dimensions.get('window'),
       backgroundColor: color(themeColor).darken(.5).rgbaString(),
       padding: grid,
       paddingTop: 0,
-      marginTop: height - (grid * 26),
       marginBottom: grid,
     },
     scroll: {
