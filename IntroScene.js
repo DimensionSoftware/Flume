@@ -126,6 +126,17 @@ class IntroScene extends Component {
               <LinkedIcon icon='apple'      href='https://itunes.apple.com/au/artist/flume/id4275634?app=itunes' />
             </View>
           </Animated.View>
+          <Animated.View // official "never be like you" ch00nz
+            style={[styles.preview, styles.headerVideo]}>
+            <YouTube
+              ref='youtube'
+              play={false}
+              style={styles.youtube}
+              videoId='-KPnyf8vwXI'
+              hidden={!this.state.youTubeReady}
+              playsInline={true}
+              onReady={() =>{this.setState({youTubeReady: true})}} />
+          </Animated.View>
           <TourDates />
           <Image source={require('./assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />
           <SoundCloud />
@@ -136,17 +147,6 @@ class IntroScene extends Component {
               play={false}
               style={styles.youtube}
               videoId='4fAzM5cI5FM'
-              hidden={!this.state.youTubeReady}
-              playsInline={true}
-              onReady={() =>{this.setState({youTubeReady: true})}} />
-          </Animated.View>
-          <Animated.View // youtube (for now) "never be like you" ch00nz
-            style={[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]}>
-            <YouTube
-              ref='youtube'
-              play={false}
-              style={styles.youtube}
-              videoId='Ly7uj0JwgKg'
               hidden={!this.state.youTubeReady}
               playsInline={true}
               onReady={() =>{this.setState({youTubeReady: true})}} />
@@ -183,6 +183,14 @@ const window = Dimensions.get('window'),
       flexDirection: 'column',
       paddingTop: 20,
       opacity: 1,
+    },
+    headerVideo: {
+      borderColor: '#000',
+      backgroundColor: color(themeColor).darken(.5).rgbaString(),
+      padding: grid / 2,
+      paddingTop: 0,
+      marginTop: height - (grid * 27),
+      marginBottom: grid,
     },
     scroll: {
       backgroundColor: 'transparent',

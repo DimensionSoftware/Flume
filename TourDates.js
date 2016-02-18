@@ -78,7 +78,7 @@ const window = Dimensions.get('window'),
   styles     = StyleSheet.create({
   container: {
     padding: grid,
-    marginTop: height - (grid * 27),
+    marginTop: grid * 2,
     marginBottom: grid * 1.5,
     backgroundColor: color(themeColor).clearer(.4).rgbaString(),
     flex: 1,
