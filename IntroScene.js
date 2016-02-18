@@ -21,7 +21,7 @@ const {
   YouTubeVideo   = require('./YouTubeVideo'),
 
   flowerOffset = -86,  // offset from bottom
-  flowerMax    = 180   // offset before disappear
+  flowerMax    = 250   // offset before disappear
 
 class IntroScene extends Component {
   constructor(props) {
@@ -32,13 +32,13 @@ class IntroScene extends Component {
       fadeInIcons:    new Animated.Value(0),
       flowerOpacity:  new Animated.Value(0),
       upFlower:       new Animated.Value(0),
-      youTubeReady:   false, // hidden until
+      showVideo:      0, // hidden until
       showNewsletter: false,
     }
   }
 
   componentDidMount() {
-    this.timer = setTimeout(this.buildIn.bind(this), 10) // yield & go!
+    this.timer = setTimeout(this.buildIn.bind(this), 15) // yield & go!
   }
 
   componentWillUnmount() {
@@ -84,12 +84,12 @@ class IntroScene extends Component {
         <ScrollView style={styles.scroll} scrollEventThrottle={16} onScroll={(e) => {
           // flower scroll fx
           const y = e.nativeEvent.contentOffset.y,
-            yParallaxFactor = y / 3 + flowerOffset,
+            yParallaxFactor = y / 4 + flowerOffset,
             flowerOpacity   = y <= 4
               ? 1              // show
               : yParallaxFactor >= flowerMax // hard limit to disappear
                 ? 0
-                : 1 / (y / 70) // fast fade
+                : 1 / (y / 120) // fast fade
           this.setState({
             upFlower: yParallaxFactor <= flowerOffset
               ? -(yParallaxFactor - flowerOffset * 2) // exceeded top, so-- snap-bounce back down (instead of up)
@@ -127,10 +127,11 @@ class IntroScene extends Component {
             </View>
           </Animated.View>
 
-          <Animated.View>
+          <Animated.View style={{opacity: this.state.showVideo}}>
             <YouTubeVideo // official "never be like you" ch00nz
               videoId = {'-KPnyf8vwXI'}
-              style   = {[styles.preview, styles.headerVideo]} />
+              style   = {[styles.preview, styles.headerVideo]}
+              isReady = {() => this.setState({showVideo: 1})} />
           </Animated.View>
 
           <TourDates />
@@ -152,7 +153,6 @@ class IntroScene extends Component {
 
           <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
           <Text style={styles.copy}>© FLUME {new Date().getFullYear()}  ●  SITE: MANUFACTUR X FLUME</Text>
-
         </ScrollView>
         {newsletter}
       </LinearGradient>
@@ -174,7 +174,7 @@ const window = Dimensions.get('window'),
     headerVideo: {
       borderColor: '#000',
       backgroundColor: color(themeColor).darken(.5).rgbaString(),
-      padding: grid / 2,
+      padding: grid,
       paddingTop: 0,
       marginTop: height - (grid * 26),
       marginBottom: grid,

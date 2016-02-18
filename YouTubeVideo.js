@@ -24,7 +24,11 @@ class YouTubeVideo extends Component {
           videoId={this.props.videoId}
           hidden={!this.state.ready}
           playsInline={true}
-          onReady={() =>{this.setState({ready: true})}} />
+          onReady={() => {
+            this.setState({ready: true})
+            if (this.props.isReady) // trigger ready!
+              this.props.isReady()
+          }} />
       </View>
     )
   }
