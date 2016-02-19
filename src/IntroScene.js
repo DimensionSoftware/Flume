@@ -78,7 +78,7 @@ class IntroScene extends Component {
         <Animated.Image // flower
           renderToHardwareTextureAndroid = {true}
           shouldRasterizeIOS             = {true}
-          source                         = {require('./assets/flower.png')}
+          source                         = {require('../assets/flower.png')}
           resizeMode                     = {Image.resizeMode.contain}
           style                          = {[
             {
@@ -103,7 +103,7 @@ class IntroScene extends Component {
             flowerOpacity})
         }}>
           <Animated.Image // flume logo
-            source={require('./assets/logo.png')}
+            source={require('../assets/logo.png')}
             resizeMode={Image.resizeMode.contain}
             style={[{opacity: this.state.fadeInLogo}, styles.logo]} />
           <Animated.View // bigger buttons
@@ -149,7 +149,7 @@ class IntroScene extends Component {
           </Animated.View>
 
           <TourDates />
-          <Image source={require('./assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />
+          <Image source={require('../assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />
 
           <SoundCloud />
 
@@ -165,7 +165,7 @@ class IntroScene extends Component {
               videoId = 'Su9tda5VZDE' />
           </View>
 
-          <Image source={require('./assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
+          <Image source={require('../assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
           <Text style={styles.copy}>© FLUME {new Date().getFullYear()}  ●  SITE: MANUFACTUR X FLUME</Text>
         </ScrollView>
         {newsletter}
