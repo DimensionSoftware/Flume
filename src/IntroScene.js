@@ -11,6 +11,7 @@ const {
   LinkingIOS,
   ScrollView,
   View,
+  InteractionManager,
 } = React,
   LinearGradient = require('react-native-linear-gradient'),
   color          = require('color'),
@@ -37,18 +38,16 @@ class IntroScene extends Component {
       fadeInVideo:    new Animated.Value(0), // hidden until
       flowerOpacity:  new Animated.Value(0),
       upFlower:       new Animated.Value(0),
-      showNewsletter:    false,
-      headerVideoHeight: 0,
+      showNewsletter:       false,
+      finishedAnimating:    false,
+      headerVideoHeight:    0,
       headerVideoMarginTop: height - (grid * 32)
     }
   }
 
   componentDidMount() {
-    this.timer = setTimeout(this.buildIn.bind(this), 15) // yield & go!
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timer) // cleanup
+    this.buildIn() // go!
+    InteractionManager.runAfterInteractions(() => this.setState({finishedAnimating: true}))
   }
 
   buildIn() { // fluidly fade-in scene, riffs off flumemusic.com
@@ -133,37 +132,44 @@ class IntroScene extends Component {
             </View>
           </Animated.View>
 
-          <Animated.View style={{opacity: this.state.fadeInVideo}}>
-            <YouTubeVideo // official "never be like you" ch00nz
-              videoId = {'-KPnyf8vwXI'}
-              style   = {[
-                styles.preview,
-                styles.headerVideo,
-                {marginTop: this.state.headerVideoMarginTop, height: this.state.headerVideoHeight}]}
-              isReady = {() => {
-                this.setState({ // loaded, so-- push Tour down
-                  headerVideoMarginTop: height - (grid * 28),
-                  headerVideoHeight:    190})
-                Animated.timing(this.state.fadeInVideo, {toValue: 1, duration: 300}).start()
-              }} />
-          </Animated.View>
+          {this.state.finishedAnimating
+            ? [ <Animated.View key='neverblikeu' style={{opacity: this.state.fadeInVideo}}>
+                  <YouTubeVideo // official "never be like you" ch00nz
+                    videoId = {'-KPnyf8vwXI'}
+                    style   = {[
+                      styles.preview,
+                      styles.headerVideo,
+                      {marginTop: this.state.headerVideoMarginTop, height: this.state.headerVideoHeight}]}
+                    isReady = {() => {
+                      this.setState({ // loaded, so-- push Tour down
+                        headerVideoMarginTop: height - (grid * 28),
+                        headerVideoHeight:    190})
+                      Animated.timing(this.state.fadeInVideo, {toValue: 1, duration: 300}).start()
+                    }} />
+                </Animated.View>,
+                <TourDates key='tourdates' />,
+                <Image key='sk' source={require('../assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />,
 
-          <TourDates />
-          <Image source={require('../assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />
+                <SoundCloud key='soundcloud' />,
 
-          <SoundCloud />
-
-          <YouTubeVideo // youtube "smoke and retribution" ch00nz
-            videoId = '4fAzM5cI5FM'
-            style   = {[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]} />
-          <View // youtube "skin" ep ch00nz
-            style={[styles.preview, {backgroundColor: color(darkThemeColor).lighten(.2).clearer(.8).rgbaString()}]}>
-            <Text style={styles.header}>SKIN EP</Text>
-            <Text style={styles.header}>PREVIEW</Text>
-            <YouTubeVideo
-              style   = {[styles.youtube,{marginTop: grid * 2}]}
-              videoId = 'Su9tda5VZDE' />
-          </View>
+                <YouTubeVideo // youtube "smoke and retribution" ch00nz
+                  key     = 'smokeandretribution'
+                  videoId = '4fAzM5cI5FM'
+                  style   = {[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]} />,
+                <View // youtube "skin" ep ch00nz
+                  key   = 'skin'
+                  style = {[styles.preview, {backgroundColor: color(darkThemeColor).lighten(.2).clearer(.8).rgbaString()}]}>
+                  <Text style={styles.header}>SKIN EP</Text>
+                  <Text style={styles.header}>PREVIEW</Text>
+                  <YouTubeVideo
+                    style   = {[styles.youtube,{marginTop: grid * 2}]}
+                    videoId = 'Su9tda5VZDE' />
+                </View>
+              ]
+            : [ // placeholder
+                <Animated.View key='neverblikeu' style={{marginTop: this.state.headerVideoMarginTop + grid * 2.2, opacity: 0}} />,
+                <TourDates key='tourdates' />
+              ]}
 
           <Image source={require('../assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
           <Text style={styles.copy}>© FLUME {new Date().getFullYear()}  ●  SITE: MANUFACTUR X FLUME</Text>
