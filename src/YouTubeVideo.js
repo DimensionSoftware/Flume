@@ -2,7 +2,10 @@
 const {
   Dimensions,
   View,
+  Text,
+  Image,
 } = React,
+  Icon    = require('react-native-iconic-font/fontawesome'),
   YouTube = require('react-native-youtube')
 
 class YouTubeVideo extends Component {
@@ -15,20 +18,27 @@ class YouTubeVideo extends Component {
 
   render() {
     return (
-      <View
-        style={this.props.style || []}>
+      <View style={this.props.style || []}>
+        {this.state.ready || [
+          <View key='placeholder' style={styles.placeholder}>
+            <Image source={this.props.source} style={styles.image} resizeMode={Image.resizeMode.cover} />
+            <View style={styles.circle}>
+              <Text style={styles.play}>{Icon('play')}</Text>
+            </View>
+          </View>
+        ]}
         <YouTube
-          ref='youtube'
-          play={false}
-          style={styles.youtube}
-          videoId={this.props.videoId}
-          hidden={!this.state.ready}
-          playsInline={true}
-          origin={'http://youtube.com'}
-          onReady={() => {
+          ref         = 'youtube'
+          play        = {false}
+          style       = {styles.youtube}
+          videoId     = {this.props.videoId}
+          hidden      = {!this.state.ready}
+          playsInline = {true}
+          origin      = {'http://youtube.com'}
+          onReady     = {() => {
             this.setState({ready: true})
-            if (this.props.isReady) // trigger ready!
-              this.props.isReady()
+            if (this.props.onReady) // trigger ready!
+              this.props.onReady()
           }} />
       </View>
     )
@@ -37,7 +47,39 @@ class YouTubeVideo extends Component {
 
 // default style
 const
+  window = Dimensions.get('window'),
+  width  = window.width,
   styles = StyleSheet.create({
+  placeholder: {
+    position: 'absolute',
+    opacity: .85,
+    top: grid,
+    right: grid,
+    left: grid,
+    bottom: grid,
+    overflow: 'hidden',
+  },
+  image: { // clip edge pixles
+    marginTop: grid * -1,
+    marginLeft: -1,
+  },
+  play: {
+    color: '#fff',
+    fontSize: 30,
+    marginTop: 20,
+    marginLeft: 25,
+    fontFamily: 'fontawesome',
+  },
+  circle: {
+    position: 'absolute',
+    top: 50,
+    left: (width / 2) - 75,
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: '#fff',
+    height: 75,
+    width: 75,
+  },
   youtube: {
     alignSelf: 'stretch',
     height: 170,
