@@ -32,33 +32,33 @@ class IntroScene extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fadeInLogo:     new Animated.Value(0),
-      fadeInHeader:   new Animated.Value(0),
-      fadeInIcons:    new Animated.Value(0),
-      fadeInVideo:    new Animated.Value(0), // hidden until
-      flowerOpacity:  new Animated.Value(0),
-      upFlower:       new Animated.Value(0),
-      showNewsletter:       false,
-      finishedAnimating:    false,
-      headerVideoHeight:    0,
-      headerVideoMarginTop: height - (grid * 32)
+      fadeInLogo:    new Animated.Value(0),
+      fadeInHeader:  new Animated.Value(0),
+      fadeInIcons:   new Animated.Value(0),
+      fadeInVideo:   new Animated.Value(0), // hidden until
+      flowerOpacity: new Animated.Value(0),
+      upFlower:      new Animated.Value(0),
+
+      showNewsletter: false,
+      finishedIntro:  false,
+      finishedVideo:  false,
     }
   }
 
   componentDidMount() {
     this.buildIn() // go!
-    InteractionManager.runAfterInteractions(() => this.setState({finishedAnimating: true}))
+    InteractionManager.runAfterInteractions(() => this.setState({finishedIntro: true}))
   }
 
   buildIn() { // fluidly fade-in scene, riffs off flumemusic.com
     const timing = Animated.timing, easing = Easing.out(Easing.quad)
     Animated.stagger(80, [
       timing(this.state.fadeInLogo,   {toValue: 1, duration: 800}),
-      timing(this.state.fadeInHeader, {toValue: 1, duration: 1200, easing }),
-      timing(this.state.fadeInIcons,  {toValue: 1, duration: 1600, easing }),
+      timing(this.state.fadeInHeader, {toValue: 1, duration: 1000, easing }),
+      timing(this.state.fadeInIcons,  {toValue: 1, duration: 1400, easing }),
     ]).start()
     Animated.stagger(100, [
-      timing(this.state.flowerOpacity, {toValue: 1, duration: 1100}),
+      timing(this.state.flowerOpacity, {toValue: 1, duration: 1000}),
       timing(this.state.upFlower,      {toValue: flowerOffset, duration: 1200, easing}),
     ]).start()
   }
@@ -132,42 +132,38 @@ class IntroScene extends Component {
             </View>
           </Animated.View>
 
-          {this.state.finishedAnimating
-            ? [ <Animated.View key='neverblikeu' style={{opacity: this.state.fadeInVideo}}>
-                  <YouTubeVideo // official "never be like you" ch00nz
+          {this.state.finishedIntro
+            ? [ <View key='neverblikeu'>
+                  <YouTubeVideo // official "never be like you" ch00nz (loads first)
                     videoId = {'-KPnyf8vwXI'}
-                    style   = {[
-                      styles.preview,
-                      styles.headerVideo,
-                      {marginTop: this.state.headerVideoMarginTop, height: this.state.headerVideoHeight}]}
-                    isReady = {() => {
-                      this.setState({ // loaded, so-- push Tour down
-                        headerVideoMarginTop: height - (grid * 28),
-                        headerVideoHeight:    190})
-                      Animated.timing(this.state.fadeInVideo, {toValue: 1, duration: 300}).start()
-                    }} />
-                </Animated.View>,
+                    source  = {require('../assets/video-placeholder.png')}
+                    style   = {[styles.preview, styles.headerVideo]}
+                    onReady = {() => this.setState({ finishedVideo: true })} />
+                </View>,
+
                 <TourDates key='tourdates' />,
                 <Image key='sk' source={require('../assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />,
 
                 <SoundCloud key='soundcloud' />,
 
-                <YouTubeVideo // youtube "smoke and retribution" ch00nz
-                  key     = 'smokeandretribution'
-                  videoId = '4fAzM5cI5FM'
-                  style   = {[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]} />,
-                <View // youtube "skin" ep ch00nz
-                  key   = 'skin'
-                  style = {[styles.preview, {backgroundColor: color(darkThemeColor).lighten(.2).clearer(.8).rgbaString()}]}>
-                  <Text style={styles.header}>SKIN EP</Text>
-                  <Text style={styles.header}>PREVIEW</Text>
-                  <YouTubeVideo
-                    style   = {[styles.youtube,{marginTop: grid * 2}]}
-                    videoId = 'Su9tda5VZDE' />
-                </View>
+                this.state.finishedVideo && // load remaining videos:
+                  <YouTubeVideo             // youtube "smoke and retribution" ch00nz
+                    key     = 'smokeandretribution'
+                    videoId = '4fAzM5cI5FM'
+                    style   = {[styles.preview, {paddingTop: 0, marginBottom: grid * 2, borderWidth: 0}]} />,
+                this.state.finishedVideo &&
+                  <View                     // youtube "skin" ep ch00nz
+                    key   = 'skin'
+                    style = {[styles.preview, {backgroundColor: color(darkThemeColor).lighten(.2).clearer(.8).rgbaString()}]}>
+                    <Text style={styles.header}>SKIN EP</Text>
+                    <Text style={styles.header}>PREVIEW</Text>
+                    <YouTubeVideo
+                      style   = {[styles.youtube,{marginTop: grid * 2}]}
+                      videoId = 'Su9tda5VZDE' />
+                  </View>
               ]
             : [ // placeholder
-                <Animated.View key='neverblikeu' style={{marginTop: this.state.headerVideoMarginTop + grid * 2.2, opacity: 0}} />,
+                <Animated.View key='neverblikeu' style={{marginTop: height - grid * 30}} />,
                 <TourDates key='tourdates' />
               ]}
 
@@ -189,6 +185,8 @@ const styles = StyleSheet.create({
       opacity: 1,
     },
     headerVideo: {
+      marginTop: height - (grid * 27),
+      height: 190,
       borderColor: '#000',
       backgroundColor: color(themeColor).darken(.5).rgbaString(),
       padding: grid,
