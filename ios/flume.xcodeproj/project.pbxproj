@@ -38,6 +38,7 @@
 		5305E4271E63603A00353CC1 /* 78539766.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5305E4261E63603A00353CC1 /* 78539766.ttf */; };
 		5305E4421E6360A800353CC1 /* fontawesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5305E4411E6360A800353CC1 /* fontawesome.ttf */; };
 		5362FCA21E6374C600E0F56F /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 5362FCA11E6374C600E0F56F /* YTPlayerView-iframe-player.html */; };
+		5362FCBF1E6384B900E0F56F /* video-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5362FCBE1E6384B900E0F56F /* video-placeholder@2x.png */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		B5BF2BF851FE4634920A1435 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF34919599F94533B5C3E3EC /* libBVLinearGradient.a */; };
@@ -276,6 +277,7 @@
 		5305E4261E63603A00353CC1 /* 78539766.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 78539766.ttf; sourceTree = "<group>"; };
 		5305E4411E6360A800353CC1 /* fontawesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fontawesome.ttf; sourceTree = "<group>"; };
 		5362FCA11E6374C600E0F56F /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
+		5362FCBE1E6384B900E0F56F /* video-placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video-placeholder@2x.png"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 				5305E4261E63603A00353CC1 /* 78539766.ttf */,
 				5305E4411E6360A800353CC1 /* fontawesome.ttf */,
 				5362FCA11E6374C600E0F56F /* YTPlayerView-iframe-player.html */,
+				5362FCBE1E6384B900E0F56F /* video-placeholder@2x.png */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -918,6 +921,7 @@
 			files = (
 				5305E4271E63603A00353CC1 /* 78539766.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				5362FCBF1E6384B900E0F56F /* video-placeholder@2x.png in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				5305E4421E6360A800353CC1 /* fontawesome.ttf in Resources */,
 				5362FCA21E6374C600E0F56F /* YTPlayerView-iframe-player.html in Resources */,

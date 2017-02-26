@@ -80,7 +80,7 @@ const window = Dimensions.get('window'),
   styles     = StyleSheet.create({
   container: {
     padding: grid,
-    marginTop: grid * 2.5,
+    marginTop: height - (grid * 28),
     marginBottom: grid * 1.5,
     flex: 1,
   },
@@ -122,13 +122,13 @@ const window = Dimensions.get('window'),
   city: {
     fontFamily,
     color: color(textColor).darken(.15).string(),
-    fontSize: 14,
+    fontSize: 15,
   },
   date: {
     fontFamily,
     color: textColor,
     fontWeight: 'bold',
-    fontSize: 10,
+    fontSize: 12,
   },
 })
 

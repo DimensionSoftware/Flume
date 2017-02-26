@@ -133,7 +133,8 @@ class IntroScene extends Component {
           </Animated.View>
  
           {this.state.finishedIntro
-            ? [ <View key='neverblikeu'>
+            ? [ <TourDates key='tourdates' />,
+                <View key='neverblikeu'>
                   <YouTubeVideo // official "never be like you" ch00nz (loads first)
                     videoId = {'Ly7uj0JwgKg'}
                     source  = {require('../assets/video-placeholder.png')}
@@ -141,7 +142,6 @@ class IntroScene extends Component {
                     onReady = {() => this.setState({ finishedVideo: true })} />
                 </View>,
 
-                <TourDates key='tourdates' />,
                 <Image key='sk' source={require('../assets/sk.png')} resizeMode={Image.resizeMode.contain} style={styles.sk} />,
 
                 <SoundCloud key='soundcloud' />,
@@ -163,8 +163,8 @@ class IntroScene extends Component {
                   </View>
               ]
             : [ // placeholder
-                <Animated.View key='neverblikeu' style={{marginTop: height - grid * 30}} />,
-                <TourDates key='tourdates' />
+                <TourDates key='tourdates' />,
+                <Animated.View key='neverblikeu' style={{marginTop: grid}} />
               ]}
 
           <Image source={require('../assets/fc-logo.png')} resizeMode={Image.resizeMode.contain} style={styles.fc} />
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
       opacity: 1,
     },
     headerVideo: {
-      marginTop: height - (grid * 27),
+      marginTop: grid,
       height: 190,
       borderColor: '#000',
       backgroundColor: color(themeColor).darken(.5).string(),
