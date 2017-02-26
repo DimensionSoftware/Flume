@@ -6,11 +6,12 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "color": "^0.11.1",
-    "react-native": "^0.19.0",
-    "react-native-form": "^1.0.6",
+    "color": "^1.0.3",
+    "react": "^15.4.2",
+    "react-native": "^0.41.2",
+    "react-native-form": "^2.1.2",
     "react-native-iconic-font": "0.0.6",
-    "react-native-linear-gradient": "^1.5.0",
-    "react-native-youtube": "^0.6.0"
+    "react-native-linear-gradient": "^2.0.0",
+    "react-native-youtube": "^0.8.1"
   }
 }

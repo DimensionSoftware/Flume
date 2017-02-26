@@ -2,7 +2,7 @@
 const {
   Dimensions,
   WebView,
-} = React
+} = Native
 
 class SoundCloud extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class SoundCloud extends Component {
     return (
       <WebView
         style={styles.container}
-        url={'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/2976616&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true'}
+        source={{uri: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/2976616&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true'}}
         javaScriptEnabled={true}
         domStorageEnabled={true}
       />

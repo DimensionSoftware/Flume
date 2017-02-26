@@ -1,4 +1,6 @@
 
+import LinearGradient from 'react-native-linear-gradient'
+
 const {
   Dimensions,
   AsyncStorage,
@@ -7,9 +9,8 @@ const {
   TextInput,
   TouchableHighlight,
   View,
-  LinkingIOS,
-} = React,
-  LinearGradient = require('react-native-linear-gradient'),
+  Linking,
+} = Native,
   color          = require('color')
 
 class TourDates extends Component {
@@ -24,7 +25,7 @@ class TourDates extends Component {
     this.getInitialStateAsync().done()
 
     // fetch latest from songkick api
-    fetch('http://api.songkick.com/api/3.0/artists/3645486/calendar.json?apikey=yNWW8T6ehHnjZwL4', {
+    fetch('https://api.songkick.com/api/3.0/artists/3645486/calendar.json?apikey=yNWW8T6ehHnjZwL4', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -33,10 +34,10 @@ class TourDates extends Component {
     })
       .then((res)  => res.json())
       .then((data) => {
-      if (data.resultsPage.status === 'ok') {
-        this.set('tourEvents', JSON.stringify(data.resultsPage.results.event)) // stash
-        this.setState({tourEvents: data.resultsPage.results.event})
-      }
+        if (data.resultsPage.status === 'ok') {
+          this.set('tourEvents', JSON.stringify(data.resultsPage.results.event)) // stash
+          this.setState({tourEvents: data.resultsPage.results.event})
+        }
     })
   }
 
@@ -52,7 +53,7 @@ class TourDates extends Component {
 
   render() {
     return (
-      <LinearGradient colors={[color(themeColor).clearer(.4).rgbaString(), color(themeColor).clearer(.9).rgbaString()]} style={styles.container}>
+      <LinearGradient colors={[color(themeColor).fade(.4).string(), color(themeColor).fade(.9).string()]} style={styles.container}>
         <Text style={styles.header}>TOUR</Text>
         {this.state.tourEvents.map((tour, i) => {
           return (i < 10) // latest N shows
@@ -61,7 +62,7 @@ class TourDates extends Component {
                 <Text style={styles.name}>{tour.displayName}</Text>
                 <Text style={styles.city}>{tour.location.city}</Text>
                 <TouchableHighlight underlayColor='transparent' onPress={() => {
-                    LinkingIOS.openURL('http://www.songkick.com/artists/3645486')
+                    Linking.openURL('http://www.songkick.com/artists/3645486')
                   }}>
                   <Text style={styles.tickets}>TICKETS</Text>
                 </TouchableHighlight>
@@ -88,7 +89,7 @@ const window = Dimensions.get('window'),
     marginBottom: grid,
     paddingBottom: grid,
     borderBottomWidth: 1,
-    borderBottomColor: color(darkThemeColor).clearer(.8).rgbaString()
+    borderBottomColor: color(darkThemeColor).fade(.8).string()
   },
   header: {
     flex: 1,
@@ -101,7 +102,7 @@ const window = Dimensions.get('window'),
     fontWeight: '300',
   },
   tickets: {
-    backgroundColor: color(darkThemeColor).clearer(.7).rgbaString(),
+    backgroundColor: color(darkThemeColor).fade(.7).string(),
     position: 'absolute',
     padding: grid,
     paddingVertical: grid / 2.5,
@@ -115,18 +116,19 @@ const window = Dimensions.get('window'),
     flex: 1,
     fontFamily,
     color: textColor,
+    marginBottom: 1,
     fontSize: 18,
   },
   city: {
     fontFamily,
-    color: color(textColor).darken(.15).rgbString(),
+    color: color(textColor).darken(.15).string(),
     fontSize: 14,
   },
   date: {
     fontFamily,
     color: textColor,
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 10,
   },
 })
 

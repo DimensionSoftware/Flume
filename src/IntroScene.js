@@ -1,5 +1,7 @@
 'use strict';
 
+import LinearGradient from 'react-native-linear-gradient'
+
 const {
   Animated,
   Easing,
@@ -8,12 +10,10 @@ const {
   TextInput,
   Text,
   TouchableHighlight,
-  LinkingIOS,
   ScrollView,
   View,
   InteractionManager,
-} = React,
-  LinearGradient = require('react-native-linear-gradient'),
+} = Native,
   color          = require('color'),
   SoundCloud     = require('./SoundCloud'),
   LinkedIcon     = require('./LinkedIcon'),
@@ -131,11 +131,11 @@ class IntroScene extends Component {
               <LinkedIcon icon='apple'      href='https://itunes.apple.com/au/artist/flume/id4275634?app=itunes' />
             </View>
           </Animated.View>
-
+ 
           {this.state.finishedIntro
             ? [ <View key='neverblikeu'>
                   <YouTubeVideo // official "never be like you" ch00nz (loads first)
-                    videoId = {'-KPnyf8vwXI'}
+                    videoId = {'Ly7uj0JwgKg'}
                     source  = {require('../assets/video-placeholder.png')}
                     style   = {[styles.preview, styles.headerVideo]}
                     onReady = {() => this.setState({ finishedVideo: true })} />
@@ -154,7 +154,7 @@ class IntroScene extends Component {
                 this.state.finishedVideo &&
                   <View                     // youtube "skin" ep ch00nz
                     key   = 'skin'
-                    style = {[styles.preview, {backgroundColor: color(darkThemeColor).lighten(.2).clearer(.8).rgbaString()}]}>
+                    style = {[styles.preview, {backgroundColor: color(darkThemeColor).lighten(.2).fade(.8).string()}]}>
                     <Text style={styles.header}>SKIN EP</Text>
                     <Text style={styles.header}>PREVIEW</Text>
                     <YouTubeVideo
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
       marginTop: height - (grid * 27),
       height: 190,
       borderColor: '#000',
-      backgroundColor: color(themeColor).darken(.5).rgbaString(),
+      backgroundColor: color(themeColor).darken(.5).string(),
       padding: grid,
       paddingTop: 0,
       marginBottom: grid,
@@ -245,8 +245,8 @@ const styles = StyleSheet.create({
       padding: grid,
       marginTop: grid * 2,
       borderWidth: 1,
-      borderColor: color(textColor).clearer(.6).rgbaString(),
-      backgroundColor: color(themeColor).darken(.05).rgbString(),
+      borderColor: color(textColor).fade(.6).string(),
+      backgroundColor: color(themeColor).darken(.05).string(),
     },
     fc: {
       width: 45,

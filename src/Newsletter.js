@@ -1,4 +1,6 @@
 
+import Form from 'react-native-form'
+
 const {
   AsyncStorage,
   Animated,
@@ -8,9 +10,8 @@ const {
   TouchableHighlight,
   View,
   LinkingIOS,
-} = React,
+} = Native,
   Icon    = require('react-native-iconic-font/fontawesome'),
-  Form    = require('react-native-form'),
 
   validBorder     = '#383083',
   invalidBorder   = 'red',
@@ -100,6 +101,7 @@ class Newsletter extends Component {
           <Form ref='form'>
             <TextInput // email address
               name                 = {'email'}
+              type                 = {'TextInput'}
               autoCapitalize       = {'characters'}
               autoCorrect          = {false}
               autoFocus            = {true}
@@ -112,6 +114,7 @@ class Newsletter extends Component {
               placeholder          = {'EMAIL'} />
             <TextInput // zipcode
               name                 = {'zip'}
+              type                 = {'TextInput'}
               autoCorrect          = {false}
               clearButtonMode      = {'while-editing'}
               keyboardType         = {'numeric'}

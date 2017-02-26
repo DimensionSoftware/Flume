@@ -5,11 +5,11 @@
 'use strict';
 
 // global static data for ease-of-use (dsl'y)
-global.React = require('react-native')
+global.React = require('react')
+global.Native = require('react-native')
 const {
   Animated,
   AppRegistry,
-  Component,
   StyleSheet,
   Text,
   ListView,
@@ -18,8 +18,8 @@ const {
   View,
   TouchableHighlight,
   StatusBarIOS
-} = React
-global.Component  = Component
+} = Native
+global.Component  = React.Component
 global.StyleSheet = StyleSheet
 global.Animated   = Animated
 

@@ -1,12 +1,13 @@
 
+import YouTube from 'react-native-youtube'
+
 const {
   Dimensions,
   View,
   Text,
   Image,
-} = React,
-  Icon    = require('react-native-iconic-font/fontawesome'),
-  YouTube = require('react-native-youtube')
+} = Native,
+  Icon = require('react-native-iconic-font/fontawesome')
 
 class YouTubeVideo extends Component {
   constructor(props) {

@@ -4,8 +4,8 @@ const {
   Text,
   TouchableHighlight,
   View,
-  LinkingIOS,
-} = React,
+  Linking,
+} = Native,
   Icon = require('react-native-iconic-font/fontawesome')
 
 class LinkedIcon extends Component {
@@ -24,7 +24,7 @@ class LinkedIcon extends Component {
             if (this.props.onPress) // custom press-handler
               this.props.onPress(arguments)
             else
-              LinkingIOS.openURL(this.props.href)
+              Linking.openURL(this.props.href)
           }}>
           {child}
         </TouchableHighlight>
