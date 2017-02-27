@@ -21,7 +21,7 @@ const {
   TourDates      = require('./TourDates'),
   YouTubeVideo   = require('./YouTubeVideo'),
 
-  flowerOffset = -86,  // offset from bottom
+  flowerOffset = -66,  // offset from bottom
   flowerMax    = 250   // offset before disappear
 
 const window = Dimensions.get('window'),
