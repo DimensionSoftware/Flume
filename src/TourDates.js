@@ -57,16 +57,17 @@ class TourDates extends Component {
         <Text style={styles.header}>TOUR</Text>
         {this.state.tourEvents.map((tour, i) => {
           return (i < 10) // latest N shows
-            ? <View key={i} style={styles.tour}>
-                <Text style={styles.date}>{tour.start.date}</Text>
-                <Text style={styles.name}>{tour.displayName}</Text>
-                <Text style={styles.city}>{tour.location.city}</Text>
-                <TouchableHighlight underlayColor='transparent' onPress={() => {
+            ? <TouchableHighlight key={i} style={styles.tour} underlayColor='transparent' onPress={() => {
+                console.log('http://www.songkick.com/artists/3645486');
                     Linking.openURL('http://www.songkick.com/artists/3645486')
                   }}>
-                  <Text style={styles.tickets}>TICKETS</Text>
-                </TouchableHighlight>
+            <View>
+              <Text style={styles.date}>{tour.start.date}</Text>
+              <Text style={styles.name}>{tour.displayName}</Text>
+              <Text style={styles.city}>{tour.location.city}</Text>
+              <Text style={styles.tickets}>TICKETS</Text>
               </View>
+                </TouchableHighlight>
             : <View key={i}></View>
         })}
       </LinearGradient>

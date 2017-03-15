@@ -1,52 +1,41 @@
 /**
- * Sample React Native App
+ * Flume
  * https://github.com/facebook/react-native
  */
 'use strict';
 
-var React = require('react-native');
-var {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-} = React;
+// global static data for ease-of-use (dsl'y)
+global.React = require('react')
+global.Native = require('react-native')
+const {
+    Animated,
+    AppRegistry,
+    StyleSheet,
+    Text,
+    ListView,
+    Navigator,
+    NavigatorIOS,
+    View,
+    TouchableHighlight,
+    StatusBarIOS
+    } = Native
+global.Component  = React.Component
+global.StyleSheet = StyleSheet
+global.Animated   = Animated
 
-var flume = React.createClass({
+// "stylesheet" theme variables
+global.grid           = 10,
+    global.textColor      = '#fff'
+global.themeColor     = 'rgba(122,87,153,.7)'
+global.darkThemeColor = '#484093'
+global.fontFamily     = 'Swiss721BT-Light'
+
+const IntroScene = require('./src/IntroScene')
+
+const app = React.createClass({
   render: function() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
+    return <IntroScene />
   }
-});
+})
 
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
-AppRegistry.registerComponent('flume', () => flume);
+AppRegistry.registerComponent('flume', () => app)
