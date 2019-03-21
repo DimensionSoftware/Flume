@@ -3,7 +3,7 @@ Flume Music App
 ===============
 [http://flumemusic.com](http://www.flumemusic.com)
 
-[![Flume Music](https://dimensionsoftware.com/images/flume.png)](https://dimensionsoftware.com)
+[![Flume Music](https://dimensionsoftware.com/static/images/github/flume.png)](https://dimensionsoftware.com)
 
 ## Quick Start
 
@@ -28,4 +28,4 @@ Flume Music App
 
 &nbsp;
 
-[![Fresh Software by Dimension](https://dimensionsoftware.com/images/software_by.png)](https://dimensionsoftware.com)
+[![Fresh Software by Dimension](https://dimensionsoftware.com/static/images/github/software_by.png)](https://dimensionsoftware.com)
